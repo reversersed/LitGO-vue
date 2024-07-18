@@ -5,12 +5,7 @@ import "../assets/variables.css";
 
 <template>
 	<div class="search-wrapper">
-		<input
-			placeholder="Искать на LitGO"
-			type="text"
-			name=""
-			id=""
-		/>
+		<input placeholder="Искать на LitGO" type="text" name="" id="" />
 		<button>Найти</button>
 	</div>
 </template>
@@ -25,7 +20,8 @@ import "../assets/variables.css";
 	align-items: center;
 }
 
-.search-wrapper input {
+.search-wrapper input,
+.search-wrapper input:valid {
 	z-index: 10000000;
 	border: 0px;
 	outline: hidden;
@@ -43,7 +39,9 @@ import "../assets/variables.css";
 	-webkit-text-size-adjust: 100%;
 	-webkit-font-smoothing: antialiased;
 }
-
+.search-wrapper input:focus::placeholder {
+	opacity: 0.5;
+}
 button {
 	z-index: 10000000;
 	height: 100%;
