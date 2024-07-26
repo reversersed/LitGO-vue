@@ -1,5 +1,5 @@
 <template>
-	<div class="placeholder">&nbsp;</div>
+	<div class="skeleton-placeholder">&nbsp;</div>
 </template>
 
 <script setup>
@@ -26,7 +26,7 @@ defineProps({
 		background-position: -150% 0;
 	}
 }
-.placeholder {
+.skeleton-placeholder {
 	height: v-bind(height);
 	width: v-bind(width);
 	border-radius: v-bind(borderRadius);

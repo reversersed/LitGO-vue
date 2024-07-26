@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import "../assets/variables.css";
 import Carousel from "primevue/carousel";
 import "primevue/resources/themes/saga-blue/theme.css";
 
@@ -8,10 +7,12 @@ const responsiveOptions = {};
 const screens = [
 	{
 		name: "1",
+		link: "/",
 		url: "https://www.litres.ru/static/imgb2/media/2024/6/9/00003099.webp",
 	},
 	{
 		name: "2",
+		link: "/",
 		url: "https://www.litres.ru/static/imgb2/media/2024/6/3/00003113.webp",
 	},
 ];
@@ -20,6 +21,7 @@ const screens = [
 <template>
 	<div class="content-wrapper">
 		<Carousel
+			class="w-full object-center pr-[5%] pl-[5%]"
 			:value="screens"
 			:numVisible="1"
 			:numScroll="1"
@@ -28,16 +30,16 @@ const screens = [
 			:autoplayInterval="3000"
 		>
 			<template #item="slotProps">
-				<div
-					class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4"
-				>
+				<div class="rounded m-2 p-4">
 					<div class="mb-4">
 						<div class="relative mx-auto">
-							<img
-								:src="slotProps.data.url"
-								alt=""
-								class="w-full rounded carousel-image"
-							/>
+							<a :href="slotProps.data.link">
+								<img
+									:src="slotProps.data.url"
+									alt=""
+									class="w-full rounded carousel-image"
+								/>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -45,10 +47,3 @@ const screens = [
 		</Carousel>
 	</div>
 </template>
-
-<style scoped>
-.carousel-image {
-	width: 100%;
-	border-radius: 15px;
-}
-</style>
