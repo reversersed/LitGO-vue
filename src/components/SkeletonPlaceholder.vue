@@ -1,8 +1,8 @@
 <template>
-	<div class="skeleton-placeholder">&nbsp;</div>
+	<div>&nbsp;</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 defineProps({
 	height: {
 		type: String,
@@ -26,7 +26,7 @@ defineProps({
 		background-position: -150% 0;
 	}
 }
-.skeleton-placeholder {
+div {
 	height: v-bind(height);
 	width: v-bind(width);
 	border-radius: v-bind(borderRadius);
