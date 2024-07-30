@@ -248,7 +248,7 @@ const getGenreNoun = (number: number) => {
 
 <template>
 	<div
-		class="w-full h-auto bg-maintext flex flex-col justify-centerz-[100] min-h-[60%]"
+		class="w-full h-auto bg-maintext flex flex-col justify-center z-[100] min-h-[60%]"
 	>
 		<div v-if="currectCategory != null" class="w-full flex flex-row mt-5">
 			<div
@@ -318,7 +318,7 @@ const getGenreNoun = (number: number) => {
 		>
 			<div
 				v-for="category in Categories"
-				class="inline-block w-full lg:pl-[60px] pb-[30px]"
+				class="inline-block w-full pl-4 sm:pl-[40px] lg:pl-[60px] pb-[30px]"
 			>
 				<a
 					class="text-black hover:text-black/60 transition-all break-words duration-200 text-sm sm:text-xl font-semibold font-main mb-5"
