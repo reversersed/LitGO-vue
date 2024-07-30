@@ -8,6 +8,10 @@ export default {
 				mainbg: "#3AAFA9",
 				mainshadow: "#2B7A78",
 				accent: "#17252A",
+				contrast: "#3d3dc7",
+			},
+			fontFamily: {
+				main: ["ui-sans-serif", "system-ui"],
 			},
 		},
 	},
