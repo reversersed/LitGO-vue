@@ -85,7 +85,7 @@ const Links = [
 						</template>
 						<template #fallback>
 							<div
-								class="w-full h-auto min-h-[80%] bg-maintext flex flex-col justify-center items-center z-[100]"
+								class="w-full h-auto min-h-[60%] bg-maintext flex flex-col justify-center items-center z-[100]"
 							>
 								<div
 									class="w-[90%] h-full sm:columns-3 md:columns-4 columns-2 mt-[30px]"

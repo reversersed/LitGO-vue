@@ -85,6 +85,61 @@ const loadCategories = async () => {
 					translit: "translit-23124",
 					bookCount: Math.floor(Math.random() * 50000),
 				},
+				{
+					name: "Транслит",
+					translit: "translit-23124",
+					bookCount: Math.floor(Math.random() * 50000),
+				},
+				{
+					name: "Транслит",
+					translit: "translit-23124",
+					bookCount: Math.floor(Math.random() * 50000),
+				},
+				{
+					name: "Транслит",
+					translit: "translit-23124",
+					bookCount: Math.floor(Math.random() * 50000),
+				},
+				{
+					name: "Транслит",
+					translit: "translit-23124",
+					bookCount: Math.floor(Math.random() * 50000),
+				},
+				{
+					name: "Транслит",
+					translit: "translit-23124",
+					bookCount: Math.floor(Math.random() * 50000),
+				},
+				{
+					name: "Транслит",
+					translit: "translit-23124",
+					bookCount: Math.floor(Math.random() * 50000),
+				},
+				{
+					name: "Транслит",
+					translit: "translit-23124",
+					bookCount: Math.floor(Math.random() * 50000),
+				},
+				{
+					name: "Транслит",
+					translit: "translit-23124",
+					bookCount: Math.floor(Math.random() * 50000),
+				},
+				{
+					name: "Транслит",
+					translit: "translit-23124",
+					bookCount: Math.floor(Math.random() * 50000),
+				},
+				{
+					name: "Транслит",
+					translit: "translit-23124",
+					bookCount: Math.floor(Math.random() * 50000),
+				},
+				{
+					name: "Транслит",
+					translit: "translit-23124",
+					bookCount: Math.floor(Math.random() * 50000),
+				},
 			],
 		},
 		{
@@ -193,7 +248,7 @@ const getGenreNoun = (number: number) => {
 
 <template>
 	<div
-		class="w-full h-auto bg-maintext flex flex-col justify-centerz-[100] min-h-[80%]"
+		class="w-full h-auto bg-maintext flex flex-col justify-centerz-[100] min-h-[60%]"
 	>
 		<div v-if="currectCategory != null" class="w-full flex flex-row mt-5">
 			<div
@@ -202,7 +257,7 @@ const getGenreNoun = (number: number) => {
 			>
 				<FontAwesomeIcon :icon="faAngleLeft" />
 			</div>
-			<div class="ml-4 sm:ml-20 flex flex-col">
+			<div class="ml-4 sm:ml-20 flex flex-col h-full">
 				<div class="flex flex-row">
 					<span class="text-base sm:text-2xl sm:font-bold">{{
 						currectCategory.name
@@ -213,20 +268,48 @@ const getGenreNoun = (number: number) => {
 						>Все книги жанра <FontAwesomeIcon :icon="faAngleRight" />
 					</a>
 				</div>
-				<ul class="mt-2 mb-8 font-main">
-					<li v-for="genre in currectCategory.genres" class="mb-2">
-						<a
-							class="font-normal font-main hover:text-contrast text-black break-words transition-colors duration-300 text-xs sm:text-base"
-							:href="'/genre/' + genre.translit"
-							>{{ genre.name }}</a
+				<div class="mt-2 mb-8 font-main min-h-full flex flex-row">
+					<ul class="w-auto">
+						<li
+							v-for="genre in currectCategory.genres.slice(0, 12)"
+							class="mb-2 w-fit"
 						>
-						<span
-							class="ml-1 text-sm font-light text-black/60 underline decoration-dotted select-none"
-							>{{ genre.bookCount }}
-							{{ getBookNoun(genre.bookCount.valueOf()) }}</span
+							<a
+								class="font-normal font-main hover:text-contrast text-black break-words transition-colors duration-300 text-xs sm:text-base"
+								:href="'/genre/' + genre.translit"
+								>{{ genre.name }}</a
+							>
+							<span
+								class="ml-1 text-sm font-light text-black/60 underline decoration-dotted select-none"
+								>{{ genre.bookCount }}
+								{{ getBookNoun(genre.bookCount.valueOf()) }}</span
+							>
+						</li>
+					</ul>
+					<ul
+						class="w-auto ml-2 sm:ml-5"
+						v-if="currectCategory.genres.length > 12"
+					>
+						<li
+							v-for="genre in currectCategory.genres.slice(
+								12,
+								currectCategory.genres.length
+							)"
+							class="mb-2 w-fit"
 						>
-					</li>
-				</ul>
+							<a
+								class="font-normal font-main hover:text-contrast text-black break-words transition-colors duration-300 text-xs sm:text-base"
+								:href="'/genre/' + genre.translit"
+								>{{ genre.name }}</a
+							>
+							<span
+								class="ml-1 text-sm font-light text-black/60 underline decoration-dotted select-none"
+								>{{ genre.bookCount }}
+								{{ getBookNoun(genre.bookCount.valueOf()) }}</span
+							>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div
