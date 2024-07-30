@@ -43,7 +43,7 @@ const onFocus = () => {
     border-radius: 10px;
     display: flex;
     align-items: center;
-    
+
 }
 
 .search-wrapper input {

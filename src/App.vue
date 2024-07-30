@@ -7,7 +7,9 @@ import HeaderComponent from './components/HeaderComponent.vue';
 
 <template>
     <HeaderComponent />
-    <RouterView />
+    <Suspense>
+        <RouterView />
+    </Suspense>
 </template>
 
 <style scoped></style>
