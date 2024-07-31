@@ -1,12 +1,11 @@
-
-
-
 export default class Genre {
-    public id: string;
-    public name: string;
+	public translitName: string;
+	public name: string;
+	public bookCount: number;
 
-    constructor(_id: string, _name: string) {
-        this.id = _id;
-        this.name = _name;
-    }
+	constructor(_translitName: string, _name: string, _bookCount: number) {
+		this.translitName = _translitName;
+		this.name = _name;
+		this.bookCount = _bookCount;
+	}
 }

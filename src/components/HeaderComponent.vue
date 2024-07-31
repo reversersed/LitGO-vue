@@ -77,7 +77,7 @@ const Links = [
 				</button>
 				<div
 					v-if="catalogueOpen"
-					class="fixed w-full lg:h-[calc(100%-64px)] h-[calc(100%-48px)] lg:top-16 top-12 left-0 justify-center"
+					class="absolute w-full lg:min-h-[calc(100%-64px)] min-h-[calc(100%-48px)] z-50 lg:top-16 top-12 left-0"
 				>
 					<Suspense suspensible>
 						<template #default>
@@ -228,7 +228,7 @@ const Links = [
 						</template>
 					</Suspense>
 					<div
-						class="bg-black/50 w-full h-full z-50 absolute"
+						class="bg-black/50 w-full h-full top-0 absolute"
 						@click="setCatalogue(false)"
 					/>
 				</div>
