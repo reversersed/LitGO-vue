@@ -67,7 +67,7 @@ const getGenreNoun = (number: number) =>
 					]"
 				>
 					<ul class="w-auto">
-						<li v-for="genre in currectCategory.genres" class="mb-2 w-fit">
+						<li v-for="genre in currectCategory.genres" :key="genre.translitName" class="mb-2 w-fit">
 							<a
 								class="font-normal font-main hover:text-contrast text-black break-words transition-colors duration-300 text-xs sm:text-base"
 								:href="'/genre/' + genre.translitName"
@@ -89,6 +89,7 @@ const getGenreNoun = (number: number) =>
 		>
 			<div
 				v-for="category in Categories"
+				:key="category.translitName"
 				class="inline-block w-full pl-4 sm:pl-[40px] lg:pl-[60px] pb-[30px]"
 			>
 				<a
@@ -99,6 +100,7 @@ const getGenreNoun = (number: number) =>
 				<ul class="mt-2">
 					<li
 						v-for="genre in category.genres.slice(0, 5)"
+						:key="genre.translitName"
 						class="mb-1.5 lg:mb-0"
 					>
 						<a

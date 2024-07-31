@@ -85,124 +85,12 @@ const Links = [
 						</template>
 						<template #fallback>
 							<div
-								class="w-full h-auto min-h-[60%] bg-maintext flex flex-col justify-center items-center z-[100]"
+								class="w-full h-auto min-h-[60%] bg-maintext flex flex-col justify-center items-center z-[100] relative"
 							>
 								<div
 									class="w-[90%] h-full sm:columns-3 md:columns-4 columns-2 mt-[30px]"
 								>
-									<div class="inline-block w-full lg:pl-[60px] pb-[30px]">
-										<SkeletonPlaceholder />
-										<ul class="mt-4">
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-										</ul>
-
-										<p
-											class="mt-1 underline decoration-dotted hover:text-contrast text-black/50 font-normal transition-colors duration-300 text-xs sm:text-base"
-										>
-											<SkeletonPlaceholder />
-										</p>
-									</div>
-									<div class="inline-block w-full lg:pl-[60px] pb-[30px]">
-										<SkeletonPlaceholder />
-										<ul class="mt-4">
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-										</ul>
-
-										<p
-											class="mt-1 underline decoration-dotted hover:text-contrast text-black/50 font-normal transition-colors duration-300 text-xs sm:text-base"
-										>
-											<SkeletonPlaceholder />
-										</p>
-									</div>
-									<div class="inline-block w-full lg:pl-[60px] pb-[30px]">
-										<SkeletonPlaceholder />
-										<ul class="mt-4">
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-										</ul>
-
-										<p
-											class="mt-1 underline decoration-dotted hover:text-contrast text-black/50 font-normal transition-colors duration-300 text-xs sm:text-base"
-										>
-											<SkeletonPlaceholder />
-										</p>
-									</div>
-									<div class="inline-block w-full lg:pl-[60px] pb-[30px]">
-										<SkeletonPlaceholder />
-										<ul class="mt-4">
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-										</ul>
-
-										<p
-											class="mt-1 underline decoration-dotted hover:text-contrast text-black/50 font-normal transition-colors duration-300 text-xs sm:text-base"
-										>
-											<SkeletonPlaceholder />
-										</p>
-									</div>
-									<div class="inline-block w-full lg:pl-[60px] pb-[30px]">
-										<SkeletonPlaceholder />
-										<ul class="mt-4">
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-										</ul>
-
-										<p
-											class="mt-1 underline decoration-dotted hover:text-contrast text-black/50 font-normal transition-colors duration-300 text-xs sm:text-base"
-										>
-											<SkeletonPlaceholder />
-										</p>
-									</div>
-									<div class="inline-block w-full lg:pl-[60px] pb-[30px]">
-										<SkeletonPlaceholder />
-										<ul class="mt-4">
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-										</ul>
-
-										<p
-											class="mt-1 underline decoration-dotted hover:text-contrast text-black/50 font-normal transition-colors duration-300 text-xs sm:text-base"
-										>
-											<SkeletonPlaceholder />
-										</p>
-									</div>
-									<div class="inline-block w-full lg:pl-[60px] pb-[30px]">
-										<SkeletonPlaceholder />
-										<ul class="mt-4">
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-											<li class="mb-1"><SkeletonPlaceholder /></li>
-										</ul>
-
-										<p
-											class="mt-1 underline decoration-dotted hover:text-contrast text-black/50 font-normal transition-colors duration-300 text-xs sm:text-base"
-										>
-											<SkeletonPlaceholder />
-										</p>
-									</div>
-									<div class="inline-block w-full lg:pl-[60px] pb-[30px]">
+									<div v-for="index in 8" :key="index" class="inline-block w-full lg:pl-[60px] pb-[30px]">
 										<SkeletonPlaceholder />
 										<ul class="mt-4">
 											<li class="mb-1"><SkeletonPlaceholder /></li>

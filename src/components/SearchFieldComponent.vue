@@ -115,7 +115,7 @@ const searchRedirect = () => {
 		]"
 	>
 		<h1 v-if="suggestionBooks.length > 0" class="text-xl ml-2">Произведения</h1>
-		<div v-for="book in suggestionBooks">
+		<div v-for="book in suggestionBooks" :key="book.id">
 			<a
 				class="cursor-pointer no-underline text-accent h-auto w-full"
 				:key="book.id"
@@ -136,7 +136,7 @@ const searchRedirect = () => {
 		</div>
 
 		<h1 v-if="suggestionAuthors.length > 0" class="text-xl ml-2">Авторы</h1>
-		<div v-for="author in suggestionAuthors">
+		<div v-for="author in suggestionAuthors" :key="author.id">
 			<a
 				class="cursor-pointer no-underline text-accent h-auto w-full"
 				:key="author.id"

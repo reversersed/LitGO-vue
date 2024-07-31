@@ -8,6 +8,7 @@ export default {
 				mainbg: "#3AAFA9",
 				mainshadow: "#2B7A78",
 				accent: "#17252A",
+				'accent-light': "#f4f4fc",
 				contrast: "#3d3dc7",
 			},
 			fontFamily: {
