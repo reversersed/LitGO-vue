@@ -114,7 +114,9 @@ const searchRedirect = () => {
 				: 'collapse opacity-0',
 		]"
 	>
-		<h1 v-if="suggestionBooks.length > 0" class="text-xl ml-2">Произведения</h1>
+		<h1 v-if="suggestionBooks.length > 0" class="text-xl ml-2 mb-2">
+			Произведения
+		</h1>
 		<div v-for="book in suggestionBooks" :key="book.id">
 			<a
 				class="cursor-pointer no-underline text-accent h-auto w-full"
@@ -122,20 +124,22 @@ const searchRedirect = () => {
 				:href="'/book/' + book.id"
 			>
 				<div
-					class="flex flex-1 w-full h-auto px-2 py-4 hover:bg-accent/10 rounded-xl transition-colors duration-200"
+					class="flex flex-1 w-full h-auto px-2 py-2 sm:py-4 hover:bg-accent/10 rounded-xl transition-colors duration-200"
 				>
 					<img
 						:src="book.cover"
 						class="rounded max-w-[30%] md:max-w-[20%] object-cover sm:block hidden"
 					/>
-					<div class="flex ml-2 max-w-[70%] w-fit flex-col">
+					<div class="flex ml-2 max-w-full w-fit flex-col">
 						<h2 class="flex-wrap">{{ book.name }}</h2>
 					</div>
 				</div>
 			</a>
 		</div>
 
-		<h1 v-if="suggestionAuthors.length > 0" class="text-xl ml-2">Авторы</h1>
+		<h1 v-if="suggestionAuthors.length > 0" class="text-xl ml-2 mt-4 mb-2">
+			Авторы
+		</h1>
 		<div v-for="author in suggestionAuthors" :key="author.id">
 			<a
 				class="cursor-pointer no-underline text-accent h-auto w-full"
@@ -143,7 +147,7 @@ const searchRedirect = () => {
 				:href="'/author/' + author.id"
 			>
 				<div
-					class="flex flex-1 w-full h-auto px-2 py-4 hover:bg-accent/10 rounded-xl transition-colors duration-200"
+					class="flex flex-1 w-full h-auto px-2 py-2 sm:py-4 hover:bg-accent/10 rounded-xl transition-colors duration-200"
 				>
 					<img
 						:src="author.profilePhoto"

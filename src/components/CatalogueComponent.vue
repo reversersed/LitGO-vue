@@ -67,13 +67,18 @@ const getGenreNoun = (number: number) =>
 					]"
 				>
 					<ul class="w-auto">
-						<li v-for="genre in currectCategory.genres" :key="genre.translitName" class="mb-2 w-fit">
+						<li
+							v-for="genre in currectCategory.genres"
+							:key="genre.translitName"
+							class="mb-2 w-fit"
+						>
 							<a
 								class="font-normal font-main hover:text-contrast text-black break-words transition-colors duration-300 text-xs sm:text-base"
 								:href="'/genre/' + genre.translitName"
 								>{{ genre.name }}</a
 							>
 							<span
+								v-if="genre.bookCount > 0"
 								class="ml-1 text-sm font-light text-black/60 underline decoration-dotted select-none"
 								>{{ genre.bookCount ?? 0 }}
 								{{ getBookNoun(genre.bookCount ?? 0) }}</span
@@ -104,9 +109,13 @@ const getGenreNoun = (number: number) =>
 						class="mb-1.5 lg:mb-0"
 					>
 						<a
-							:title="
-								(genre.bookCount ?? 0) + ' ' + getBookNoun(genre.bookCount ?? 0)
-							"
+							:title="[
+								genre.bookCount > 0
+									? (genre.bookCount ?? 0) +
+									  ' ' +
+									  getBookNoun(genre.bookCount ?? 0)
+									: '',
+							]"
 							class="mb-1 font-normal font-main hover:text-contrast text-black break-words transition-colors duration-300 text-xs sm:text-base"
 							:href="'/genre/' + genre.translitName"
 							>{{ genre.name }}</a

@@ -90,7 +90,11 @@ const Links = [
 								<div
 									class="w-[90%] h-full sm:columns-3 md:columns-4 columns-2 mt-[30px]"
 								>
-									<div v-for="index in 8" :key="index" class="inline-block w-full lg:pl-[60px] pb-[30px]">
+									<div
+										v-for="index in 8"
+										:key="index"
+										class="inline-block w-full lg:pl-[60px] pb-[30px]"
+									>
 										<SkeletonPlaceholder />
 										<ul class="mt-4">
 											<li class="mb-1"><SkeletonPlaceholder /></li>
@@ -168,15 +172,17 @@ const Links = [
 			>
 				<a
 					v-if="link.visibleFunc()"
-					class="font-normal m-2.5 text-md lg:w-20 items-center font-main no-underline cursor-pointer flex lg:flex-col"
+					class="font-normal m-2.5 text-md lg:w-15 xl:w-20 items-center font-main no-underline cursor-pointer flex lg:flex-col"
 					:href="link.link"
 				>
 					<FontAwesomeIcon
-						class="w-8 mr-2 -ml-2 lg:h-7 lg:w-auto lg:m-0"
+						class="w-8 mr-2 -ml-2 h-7 lg:h-6 xl:h-7 lg:w-auto lg:m-0"
 						:icon="link.icon"
 						size="xl"
 					/>
-					{{ link.label }}
+					<span class="text-base lg:text-xs xl:text-base">{{
+						link.label
+					}}</span>
 				</a>
 			</div>
 		</div>
