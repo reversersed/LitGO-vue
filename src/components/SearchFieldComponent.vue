@@ -128,7 +128,7 @@ const searchRedirect = () => {
 				>
 					<img
 						:src="book.cover"
-						class="rounded max-w-[30%] md:max-w-[20%] object-cover sm:block hidden"
+						class="rounded-full object-center max-w-[30%] mr-4 w-24 h-24 md:max-w-[20%] object-cover sm:block hidden"
 					/>
 					<div class="flex ml-2 max-w-full w-fit flex-col">
 						<h2 class="flex-wrap">{{ book.name }}</h2>
@@ -151,7 +151,7 @@ const searchRedirect = () => {
 				>
 					<img
 						:src="author.profilePhoto"
-						class="rounded-full max-w-[40%] w-24 overflow-hidden h-24 max-h-80 md:max-w-[20%] object-cover sm:block hidden"
+						class="rounded-full max-w-[40%] mr-4 w-24 overflow-hidden h-24 max-h-80 md:max-w-[20%] object-cover sm:block hidden"
 					/>
 					<div class="flex ml-2 max-w-[60%] w-fit">
 						<h2 class="flex-wrap">{{ author.name }}</h2>
