@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type Author from "@/models/author.model";
+import AuthorsHttpService from "@/service/HttpService/auhorsHttpService";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { computed, ref, watch } from "vue";
@@ -18,24 +20,22 @@ interface book {
 	name: string;
 	cover: string;
 }
-interface author {
-	id: string;
-	name: string;
-	profilePhoto: string;
-}
+
+let authorService = new AuthorsHttpService()
+
 const suggestionBooks = ref<book[]>([]);
-const suggestionAuthors = ref<author[]>([]);
+const suggestionAuthors = ref<Author[]>([]);
 const suggestionOpen = ref(false);
 let searchTimerId: number;
 const searchsuggestionBooks = async (query: string) => {
 	clearTimeout(searchTimerId);
 
-	searchTimerId = setTimeout(() => {
+	searchTimerId = setTimeout(async () => {
 		if (query.length == 0) {
 			setTimeout(() => {
 				suggestionBooks.value = [];
 				suggestionAuthors.value = [];
-			}, 100);
+			}, 150);
 			return;
 		}
 		suggestionBooks.value = [
@@ -50,21 +50,8 @@ const searchsuggestionBooks = async (query: string) => {
 				cover: "https://cv6.litres.ru/pub/c/cover_330/70894063.webp",
 			},
 		];
-		suggestionAuthors.value = [
-			{
-				id: "01",
-				name: "Леонид Каневский",
-				profilePhoto:
-					"https://th.bing.com/th/id/R.fb5874a08bc16b07b77813f68f035511?rik=5vqZEExXKhRR0Q&pid=ImgRaw&r=0",
-			},
-			{
-				id: "02",
-				name: "Альбина Сексова",
-				profilePhoto:
-					"https://th.bing.com/th/id/OIP.p7PXDFX4biClgTGktYZX5gHaHa?rs=1&pid=ImgDetMain",
-			},
-		];
-	}, 200);
+		suggestionAuthors.value = await authorService.getSuggestion(query)
+	}, 300);
 };
 const searchRedirect = () => {
 	window.location.replace(
@@ -114,7 +101,7 @@ const searchRedirect = () => {
 				: 'collapse opacity-0',
 		]"
 	>
-		<h1 v-if="suggestionBooks.length > 0" class="text-xl ml-2 mb-2">
+		<h1 v-if="suggestionBooks.length > 0" class="text-lg sm:text-xl font-semibold sm:font-bold ml-2 mb-1 sm:mb-2">
 			Произведения
 		</h1>
 		<div v-for="book in suggestionBooks" :key="book.id">
@@ -131,13 +118,13 @@ const searchRedirect = () => {
 						class="rounded-full object-center max-w-[30%] mr-4 w-24 h-24 md:max-w-[20%] object-cover sm:block hidden"
 					/>
 					<div class="flex ml-2 max-w-full w-fit flex-col">
-						<h2 class="flex-wrap">{{ book.name }}</h2>
+						<span class="flex-wrap font-normal sm:font-semibold">{{ book.name }}</span>
 					</div>
 				</div>
 			</a>
 		</div>
 
-		<h1 v-if="suggestionAuthors.length > 0" class="text-xl ml-2 mt-4 mb-2">
+		<h1 v-if="suggestionAuthors.length > 0" class="text-lg sm:text-xl font-semibold sm:font-bold ml-2 mt-2 mb-1 sm:mt-4 sm:mb-2">
 			Авторы
 		</h1>
 		<div v-for="author in suggestionAuthors" :key="author.id">
@@ -150,11 +137,11 @@ const searchRedirect = () => {
 					class="flex flex-1 w-full h-auto px-2 py-2 sm:py-4 hover:bg-accent/10 rounded-xl transition-colors duration-200"
 				>
 					<img
-						:src="author.profilePhoto"
+						:src="author.profilepicture"
 						class="rounded-full max-w-[40%] mr-4 w-24 overflow-hidden h-24 max-h-80 md:max-w-[20%] object-cover sm:block hidden"
 					/>
 					<div class="flex ml-2 max-w-[60%] w-fit">
-						<h2 class="flex-wrap">{{ author.name }}</h2>
+						<span class="flex-wrap font-normal sm:font-semibold">{{ author.name }}</span>
 					</div>
 				</div>
 			</a>
