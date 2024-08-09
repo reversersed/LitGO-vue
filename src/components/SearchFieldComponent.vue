@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type Author from "@/models/author.model";
-import AuthorsHttpService from "@/service/HttpService/auhorsHttpService";
+import AuthorsHttpService from "@/service/HttpService/authorsHttpService";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { computed, ref, watch } from "vue";
@@ -19,9 +19,10 @@ interface book {
 	id: string;
 	name: string;
 	cover: string;
+	translitname: string;
 }
 
-let authorService = new AuthorsHttpService()
+let authorService = new AuthorsHttpService();
 
 const suggestionBooks = ref<book[]>([]);
 const suggestionAuthors = ref<Author[]>([]);
@@ -43,15 +44,17 @@ const searchsuggestionBooks = async (query: string) => {
 				id: "1",
 				name: "Похождения дебилов",
 				cover: "https://cv8.litres.ru/pub/c/cover_330/70920784.webp",
+				translitname: "pohozdeniya-debilov-213321342",
 			},
 			{
 				id: "2",
 				name: "Как раскидывать смоки на мираже: полный туториал для идиотов",
 				cover: "https://cv6.litres.ru/pub/c/cover_330/70894063.webp",
+				translitname: "ya-ebal-eto-pisat-421142241",
 			},
 		];
-		suggestionAuthors.value = await authorService.getSuggestion(query)
-	}, 300);
+		suggestionAuthors.value = await authorService.getSuggestion(query);
+	}, 500);
 };
 const searchRedirect = () => {
 	window.location.replace(
@@ -94,54 +97,69 @@ const searchRedirect = () => {
 		</a>
 	</div>
 	<div
-		class="absolute mt-2 shadow-sm shadow-black flex flex-col transition-all ease-in-out duration-200 w-auto max-w-[90%] sm:max-w-[70%] h-auto max-h-[90%] overflow-y-auto overflow-x-hidden bg-white rounded z-50 p-5"
+		class="absolute mt-2 shadow-sm shadow-black flex flex-col transition-all ease-in-out duration-200 w-auto max-w-[90%] sm:max-w-[70%] 2xl:max-w-[40%] lg:max-w-[50%] h-auto max-h-[90%] overflow-y-auto overflow-x-hidden bg-white rounded z-50 p-5"
 		:class="[
 			suggestionOpen && suggestionBooks.length > 0 && query.length > 0
 				? 'visible opacity-100'
 				: 'collapse opacity-0',
 		]"
 	>
-		<h1 v-if="suggestionBooks.length > 0" class="text-lg sm:text-xl font-semibold sm:font-bold ml-2 mb-1 sm:mb-2">
+		<h1
+			v-if="suggestionBooks.length > 0"
+			class="text-lg sm:text-xl font-semibold sm:font-bold ml-2 mb-1 sm:mb-2"
+		>
 			Произведения
 		</h1>
 		<div v-for="book in suggestionBooks" :key="book.id">
 			<a
 				class="cursor-pointer no-underline text-accent h-auto w-full"
-				:key="book.id"
-				:href="'/book/' + book.id"
+				:key="book.translitname"
+				:href="'/book/' + book.translitname"
 			>
 				<div
 					class="flex flex-1 w-full h-auto px-2 py-2 sm:py-4 hover:bg-accent/10 rounded-xl transition-colors duration-200"
 				>
 					<img
 						:src="book.cover"
-						class="rounded-full object-center max-w-[30%] mr-4 w-24 h-24 md:max-w-[20%] object-cover sm:block hidden"
+						class="rounded-full min-w-14 md:min-w-24 h-14 md:h-24 object-cover sm:block hidden"
 					/>
 					<div class="flex ml-2 max-w-full w-fit flex-col">
-						<span class="flex-wrap font-normal sm:font-semibold">{{ book.name }}</span>
+						<span class="flex-wrap font-normal sm:font-semibold">{{
+							book.name
+						}}</span>
 					</div>
 				</div>
 			</a>
 		</div>
 
-		<h1 v-if="suggestionAuthors.length > 0" class="text-lg sm:text-xl font-semibold sm:font-bold ml-2 mt-2 mb-1 sm:mt-4 sm:mb-2">
+		<h1
+			v-if="suggestionAuthors.length > 0"
+			class="text-lg sm:text-xl font-semibold sm:font-bold ml-2 mt-2 mb-1 sm:mt-4 sm:mb-2"
+		>
 			Авторы
 		</h1>
 		<div v-for="author in suggestionAuthors" :key="author.id">
 			<a
 				class="cursor-pointer no-underline text-accent h-auto w-full"
-				:key="author.id"
-				:href="'/author/' + author.id"
+				:key="author.translitname"
+				:href="'/author/' + author.translitname"
 			>
 				<div
-					class="flex flex-1 w-full h-auto px-2 py-2 sm:py-4 hover:bg-accent/10 rounded-xl transition-colors duration-200"
+					class="flex w-full h-auto px-2 py-2 sm:py-4 hover:bg-accent/10 rounded-xl transition-colors duration-200"
 				>
 					<img
 						:src="author.profilepicture"
-						class="rounded-full max-w-[40%] mr-4 w-24 overflow-hidden h-24 max-h-80 md:max-w-[20%] object-cover sm:block hidden"
+						class="rounded-full min-w-14 md:min-w-24 h-14 md:h-24 object-cover sm:block hidden"
 					/>
-					<div class="flex ml-2 max-w-[60%] w-fit">
-						<span class="flex-wrap font-normal sm:font-semibold">{{ author.name }}</span>
+					<div class="flex flex-col ml-4 w-fit">
+						<span class="flex-wrap font-normal sm:font-semibold">{{
+							author.name
+						}}</span>
+						<p
+							class="collapse h-0 sm:visible max-h-[78px] max-w-fit sm:h-auto line-clamp-2 md:line-clamp-3 font-normal text-ellipsis"
+						>
+							{{ author.about }}
+						</p>
 					</div>
 				</div>
 			</a>
