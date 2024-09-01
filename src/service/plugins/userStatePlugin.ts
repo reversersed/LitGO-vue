@@ -1,4 +1,6 @@
 import { inject, reactive, type App } from "vue";
+import UserHttpService from "../HttpService/userHttpService";
+import type { UserLoginModel } from "@/models/user.model";
 
 interface userStateProps {
 	id: string;
@@ -13,10 +15,19 @@ const userState = reactive<userStateProps>({
 	isAuthorized: false,
 });
 export const userStatePlugin = {
-	install(app: App<Element>) {
+	async install(app: App<Element>) {
+		let user = await new UserHttpService().checkForAuthorization();
+		user !== undefined && OnUserLogin(user);
+
 		app.provide<userStateProps>("userState", userState);
 	},
 };
 export function useUser() {
 	return inject<userStateProps>("userState");
+}
+export function OnUserLogin(model: UserLoginModel) {
+	userState.id = model.id;
+	userState.login = model.login;
+	userState.roles = model.roles;
+	userState.isAuthorized = true;
 }

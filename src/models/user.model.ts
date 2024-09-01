@@ -11,3 +11,9 @@ export default class User {
 		this.email = _email;
 	}
 }
+
+export interface UserLoginModel {
+	id: string;
+	login: string;
+	roles: string[];
+}
