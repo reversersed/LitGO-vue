@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import BooksHttpService from "@/service/HttpService/booksHttpService";
+import BookHttpService from "@/service/HttpService/bookHttpService";
 
 const props = defineProps<{
 	title: string;
 }>();
 
-const BookService = new BooksHttpService();
+const BookService = new BookHttpService();
 const books = await BookService.getAll();
 </script>
 

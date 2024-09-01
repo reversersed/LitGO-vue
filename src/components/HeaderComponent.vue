@@ -7,17 +7,16 @@ import {
 	faBookReader,
 	faCartShopping,
 	faClose,
-	faFilter,
 	faHome,
-	faJournalWhills,
-	faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { faDoorClosed } from "@fortawesome/free-solid-svg-icons/faDoorClosed";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { ref } from "vue";
 import CatalogueComponent from "@/components/CatalogueComponent.vue";
 import SkeletonPlaceholder from "./SkeletonPlaceholder.vue";
+import { useUser } from "@/service/plugins/userStatePlugin";
 
+const userState = useUser();
 const sideMenuOpen = ref(false);
 const catalogueOpen = ref(false);
 const setCatalogue = (open: boolean) => {
@@ -34,25 +33,25 @@ const Links = [
 		link: "/",
 		label: "Отложенные",
 		icon: faBookBookmark,
-		visibleFunc: () => true,
+		visible: userState?.isAuthorized,
 	},
 	{
 		link: "/",
 		label: "Корзина",
 		icon: faCartShopping,
-		visibleFunc: () => true,
+		visible: userState?.isAuthorized,
 	},
 	{
 		link: "/",
 		label: "Мои книги",
 		icon: faBookReader,
-		visibleFunc: () => true,
+		visible: userState?.isAuthorized,
 	},
 	{
-		link: "/",
+		link: "/login",
 		label: "Войти",
 		icon: faDoorClosed,
-		visibleFunc: () => true,
+		visible: !userState?.isAuthorized,
 	},
 ];
 </script>
@@ -171,7 +170,7 @@ const Links = [
 				class="text-maintext hover:text-accent hover:font-semibold lg:transition-all"
 			>
 				<a
-					v-if="link.visibleFunc()"
+					v-if="link.visible"
 					class="font-normal m-2.5 text-md lg:w-15 xl:w-20 items-center font-main no-underline cursor-pointer flex lg:flex-col"
 					:href="link.link"
 				>

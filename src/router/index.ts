@@ -1,4 +1,14 @@
+import { useUser } from "@/service/plugins/userStatePlugin";
 import { createRouter, createWebHistory } from "vue-router";
+
+const unauthorizedRoute = (): string | void => {
+	let state = useUser();
+	if (state === undefined || state.isAuthorized) return "/";
+};
+const authorizedRoute = (): string | void => {
+	let state = useUser();
+	if (state === undefined || !state.isAuthorized) return "/";
+};
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,6 +21,12 @@ const router = createRouter({
 		{
 			path: "/genres",
 			name: "genres",
+			component: () => import("@/pages/GenreObserverPage.vue"),
+		},
+		{
+			path: "/login",
+			name: "login",
+			beforeEnter: unauthorizedRoute,
 			component: () => import("@/pages/GenreObserverPage.vue"),
 		},
 		{

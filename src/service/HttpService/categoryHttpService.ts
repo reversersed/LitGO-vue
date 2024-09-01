@@ -2,14 +2,19 @@ import Category from "@/models/category.model";
 import GenericHttpService from "./genericHttpService";
 import axios from "axios";
 
-export default class BooksHttpService extends GenericHttpService<Category> {
+export default class CategoryHttpService extends GenericHttpService<Category> {
 	constructor() {
 		super("/genres");
 	}
 
 	async getAll(): Promise<Category[]> {
-		const response = await axios.get(this.buildPath("/all"));
-		return await (response.data as Promise<Category[]>);
+		try {
+			const response = await axios.get(this.buildPath("/all"));
+
+			return (await response.data) as Promise<Category[]>;
+		} catch {
+			return [];
+		}
 	}
 	get(translitName: string): Promise<Category> {
 		throw new Error("Method not implemented.");

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type Author from "@/models/author.model";
-import AuthorsHttpService from "@/service/HttpService/authorsHttpService";
+import AuthorHttpService from "@/service/HttpService/authorHttpService";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { computed, ref, watch } from "vue";
@@ -22,7 +22,7 @@ interface book {
 	translitname: string;
 }
 
-let authorService = new AuthorsHttpService();
+let authorService = new AuthorHttpService();
 
 const suggestionBooks = ref<book[]>([]);
 const suggestionAuthors = ref<Author[]>([]);

@@ -10,6 +10,7 @@ const currectCategory = ref<Category | null>(null);
 
 const service = new categoryHttpService();
 const Categories = await service.getAll().then((data) => {
+	if (data === undefined) return;
 	totalGenres.value = 0;
 	data.map((elem) => (totalGenres.value += elem.genres.length));
 	return data;
@@ -109,13 +110,13 @@ const getGenreNoun = (number: number) =>
 						class="mb-1.5 lg:mb-0"
 					>
 						<a
-							:title="[
+							:title="
 								genre.bookCount > 0
 									? (genre.bookCount ?? 0) +
 									  ' ' +
 									  getBookNoun(genre.bookCount ?? 0)
-									: '',
-							]"
+									: ''
+							"
 							class="mb-1 font-normal font-main hover:text-contrast text-black break-words transition-colors duration-300 text-xs sm:text-base"
 							:href="'/genre/' + genre.translitName"
 							>{{ genre.name }}</a

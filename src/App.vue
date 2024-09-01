@@ -5,9 +5,9 @@ import FooterComponent from "@/components/FooterComponent.vue";
 </script>
 
 <template>
-    <HeaderComponent />
-    <Suspense>
-        <RouterView />
-    </Suspense>
-    <FooterComponent />
+	<HeaderComponent />
+	<Suspense>
+		<RouterView />
+	</Suspense>
+	<FooterComponent />
 </template>

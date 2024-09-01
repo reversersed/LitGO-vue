@@ -2,7 +2,7 @@ import type Author from "@/models/author.model";
 import GenericHttpService from "@/service/HttpService/genericHttpService";
 import axios from "axios";
 
-export default class AuthorsHttpService extends GenericHttpService<Author> {
+export default class AuthorHttpService extends GenericHttpService<Author> {
 	constructor() {
 		super("/authors");
 	}

@@ -3,7 +3,7 @@ import GenericHttpService from "./genericHttpService";
 
 
 
-export default class BooksHttpService extends GenericHttpService<Book>{
+export default class BookHttpService extends GenericHttpService<Book>{
     constructor() {
         super("");
     }

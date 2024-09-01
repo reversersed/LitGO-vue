@@ -1,5 +1,6 @@
 import serverConfig from "@/config/server.config";
 import type { IHttpService } from "./httpService";
+import router from "@/router";
 
 export default abstract class GenericHttpService<T> implements IHttpService<T> {
 	private serverString: string;
@@ -26,7 +27,6 @@ export default abstract class GenericHttpService<T> implements IHttpService<T> {
 					: "/" + pathPart))
 		);
 	}
-
 	abstract getAll(): Promise<T[]>;
 	abstract get(id: string): Promise<T>;
 	abstract create(entity: T): Promise<string>;
