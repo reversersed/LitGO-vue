@@ -2,6 +2,14 @@
 import { RouterView } from "vue-router";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+import UserHttpService from "@/service/HttpService/userHttpService";
+import { OnUserLogin } from "@/service/plugins/userStatePlugin";
+</script>
+
+<script lang="ts">
+let userService = new UserHttpService();
+let authorization = await userService.checkForAuthorization();
+authorization !== undefined && OnUserLogin(authorization);
 </script>
 
 <template>

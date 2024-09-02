@@ -9,13 +9,12 @@ export default class UserHttpService extends GenericHttpService<User> {
 	}
 
 	async checkForAuthorization(): Promise<UserLoginModel | undefined> {
-		try {
-			const response = await axios.get(this.buildPath("/auth"));
+		const response = await axios
+			.get(this.buildPath("/auth"))
+			.then((response) => response.data as Promise<UserLoginModel>)
+			.catch((error) => undefined);
 
-			return (await response.data) as Promise<UserLoginModel>;
-		} catch {
-			return undefined;
-		}
+		return response;
 	}
 	getAll(): Promise<User[]> {
 		throw new Error("Method not implemented.");

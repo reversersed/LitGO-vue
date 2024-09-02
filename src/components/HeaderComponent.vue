@@ -8,8 +8,8 @@ import {
 	faCartShopping,
 	faClose,
 	faHome,
+	faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { faDoorClosed } from "@fortawesome/free-solid-svg-icons/faDoorClosed";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { ref } from "vue";
 import CatalogueComponent from "@/components/CatalogueComponent.vue";
@@ -50,7 +50,7 @@ const Links = [
 	{
 		link: "/login",
 		label: "Войти",
-		icon: faDoorClosed,
+		icon: faUser,
 		visible: !userState?.isAuthorized,
 	},
 ];
@@ -147,7 +147,7 @@ const Links = [
 			<SearchFieldComponent />
 		</div>
 		<div
-			class="bg-mainbg lg:left-0 top-8 w-full pt-4 pb-2 pl-4 lg:p-0 lg:top-0 lg:w-auto z-40 flex flex-col absolute lg:bg-transparent lg:flex-row lg:relative duration-800 transition-all ease-in"
+			class="bg-mainbg lg:left-0 top-8 w-full mt-4 mb-2 pl-4 lg:p-0 lg:top-0 lg:w-auto z-40 flex flex-col absolute lg:bg-transparent lg:flex-row lg:relative duration-800 transition-all ease-in"
 			:class="[sideMenuOpen ? 'left-0' : '-left-full']"
 		>
 			<div
@@ -158,24 +158,21 @@ const Links = [
 					href="/"
 				>
 					<FontAwesomeIcon
-						class="w-8 mr-2 -ml-2 lg:h-7 lg:w-auto lg:m-0"
+						class="w-8 mr-2 -ml-2 lg:h-6 lg:w-auto lg:m-0"
 						:icon="faHome"
 						size="xl"
 					/>
 					Главная
 				</a>
 			</div>
-			<div
-				v-for="link in Links"
-				class="text-maintext hover:text-accent hover:font-semibold lg:transition-all"
-			>
+			<div v-for="link in Links" class="text-maintext">
 				<a
 					v-if="link.visible"
-					class="font-normal m-2.5 text-md lg:w-15 xl:w-20 items-center font-main no-underline cursor-pointer flex lg:flex-col"
+					class="font-normal hover:text-accent hover:font-semibold lg:transition-all m-2.5 text-md lg:w-15 xl:w-20 items-center font-main no-underline cursor-pointer flex lg:flex-col"
 					:href="link.link"
 				>
 					<FontAwesomeIcon
-						class="w-8 mr-2 -ml-2 h-7 lg:h-6 xl:h-7 lg:w-auto lg:m-0"
+						class="w-8 mr-2 -ml-2 h-7 lg:h-5 xl:h-6 lg:w-auto lg:m-0"
 						:icon="link.icon"
 						size="xl"
 					/>

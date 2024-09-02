@@ -8,12 +8,11 @@ export default class AuthorHttpService extends GenericHttpService<Author> {
 	}
 
 	async getSuggestion(query: string): Promise<Author[]> {
-		try {
-			let response = await axios.get(this.buildPath("/suggest?query=" + query));
-			return (await response.data.authors) as Promise<Author[]>;
-		} catch {
-			return [];
-		}
+		let response = await axios
+			.get(this.buildPath("/suggest?query=" + query))
+			.then((response) => response.data.authors as Promise<Author[]>)
+			.catch((error) => []);
+		return response;
 	}
 	getAll(): Promise<Author[]> {
 		throw new Error("Method not implemented.");

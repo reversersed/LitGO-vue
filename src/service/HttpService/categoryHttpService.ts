@@ -8,13 +8,12 @@ export default class CategoryHttpService extends GenericHttpService<Category> {
 	}
 
 	async getAll(): Promise<Category[]> {
-		try {
-			const response = await axios.get(this.buildPath("/all"));
+		const response = await axios
+			.get(this.buildPath("/all"))
+			.then((response) => response.data as Promise<Category[]>)
+			.catch((error) => []);
 
-			return (await response.data) as Promise<Category[]>;
-		} catch {
-			return [];
-		}
+		return response;
 	}
 	get(translitName: string): Promise<Category> {
 		throw new Error("Method not implemented.");

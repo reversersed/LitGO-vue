@@ -15,10 +15,7 @@ const userState = reactive<userStateProps>({
 	isAuthorized: false,
 });
 export const userStatePlugin = {
-	async install(app: App<Element>) {
-		let user = await new UserHttpService().checkForAuthorization();
-		user !== undefined && OnUserLogin(user);
-
+	install(app: App<Element>) {
 		app.provide<userStateProps>("userState", userState);
 	},
 };
