@@ -4,12 +4,13 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				maintext: "#FEFFFF",
-				mainbg: "#3AAFA9",
-				mainshadow: "#2B7A78",
-				accent: "#17252A",
-				'accent-light': "#f4f4fc",
-				contrast: "#3d3dc7",
+				maintext: "rgb(var(--color-maintext) / <alpha-value>)",
+				mainblack: "rgb(var(--color-mainblack) / <alpha-value>)",
+				mainbg: "rgb(var(--color-mainbg) / <alpha-value>)",
+				mainshadow: "rgb(var(--color-mainshadow) / <alpha-value>)",
+				accent: "rgb(var(--color-accent) / <alpha-value>)",
+				"accent-light": "rgb(var(--color-accent-light) / <alpha-value>)",
+				contrast: "rgb(var(--color-contrast) / <alpha-value>)",
 			},
 			fontFamily: {
 				main: ["ui-sans-serif", "system-ui"],

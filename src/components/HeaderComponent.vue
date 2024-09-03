@@ -15,10 +15,12 @@ import { ref } from "vue";
 import CatalogueComponent from "@/components/CatalogueComponent.vue";
 import SkeletonPlaceholder from "./SkeletonPlaceholder.vue";
 import { useUser } from "@/service/plugins/userStatePlugin";
+import LoginForm from "./LoginForm.vue";
 
 const userState = useUser();
 const sideMenuOpen = ref(false);
 const catalogueOpen = ref(false);
+const loginModalOpen = ref(false);
 const setCatalogue = (open: boolean) => {
 	catalogueOpen.value = open;
 	sideMenuOpen.value = false;
@@ -27,8 +29,15 @@ const setSideMenu = (open: boolean) => {
 	catalogueOpen.value = false;
 	sideMenuOpen.value = open;
 };
-
+const setLoginModal = (open: boolean) => (loginModalOpen.value = open);
 const Links = [
+	{
+		link: "/",
+		label: "Главная",
+		icon: faHome,
+		visible: true,
+		addClass: "flex sm:hidden",
+	},
 	{
 		link: "/",
 		label: "Отложенные",
@@ -48,7 +57,17 @@ const Links = [
 		visible: userState?.isAuthorized,
 	},
 	{
+		// Modal for large screens
+		action: setLoginModal,
+		addClass: "hidden sm:flex",
+		label: "Войти",
+		icon: faUser,
+		visible: !userState?.isAuthorized,
+	},
+	{
+		// Page for small screens
 		link: "/login",
+		addClass: "flex sm:hidden",
 		label: "Войти",
 		icon: faUser,
 		visible: !userState?.isAuthorized,
@@ -57,6 +76,32 @@ const Links = [
 </script>
 
 <template>
+	<!-- login modal -->
+	<div
+		class="absolute z-[1000] w-dvw h-dvh flex flex-row items-center justify-center"
+		v-if="loginModalOpen"
+	>
+		<div
+			class="w-full h-full absolute bg-black/80 top-0"
+			@click="() => setLoginModal(false)"
+		/>
+		<div
+			class="bg-white z-10 -translate-y-20 max-w-[300px] xl:max-w-[500px] px-[30px] rounded-2xl flex grow-[1] pb-10 flex-col items-center justify-center"
+		>
+			<a
+				class="self-end mt-2 -mr-4 transition-all duration-300 rotate-0 hover:rotate-180 z-50 cursor-pointer"
+				><FontAwesomeIcon
+					:icon="faClose"
+					size="xl"
+					@click="() => setLoginModal(false)"
+			/></a>
+			<h1 class="mb-5 text-xl font-semibold tracking-wider font-main">
+				Авторизация
+			</h1>
+			<LoginForm />
+		</div>
+	</div>
+	<!-- main block -->
 	<header
 		class="z-50 pl-2 flex flex-col lg:flex-row lg:items-center justify-center lg:pr-[10%] lg:pl-[10%] h-12 lg:h-16 bg-mainbg font-semibold"
 	>
@@ -69,9 +114,14 @@ const Links = [
 			<div class="block">
 				<button
 					@click="setCatalogue(!catalogueOpen)"
-					class="transition-colors duration-200 z-[100] lg:min-w-[110px] p-2 text-sm lg:px-5 lg:py-3 m-1.5 border-0 bg-accent rounded-xl cursor-pointer lg:m-2.5 text-maintext lg:text-sm font-semibold font-main hover:bg-neutral-700"
+					:class="catalogueOpen ? 'bg-mainshadow' : 'bg-accent'"
+					class="transition-colors duration-200 z-[100] lg:min-w-[110px] p-2 text-sm lg:px-5 lg:py-3 m-1.5 border-0 rounded-xl cursor-pointer lg:m-2.5 text-maintext lg:text-sm font-semibold font-main hover:bg-neutral-700"
 				>
-					<FontAwesomeIcon :icon="faBook" size="1x" class="mr-[2px]" />
+					<FontAwesomeIcon
+						:icon="catalogueOpen ? faClose : faBook"
+						size="1x"
+						class="mr-[2px]"
+					/>
 					<span class="hidden lg:contents">Каталог</span>
 				</button>
 				<div
@@ -150,26 +200,13 @@ const Links = [
 			class="bg-mainbg lg:left-0 top-8 w-full mt-4 mb-2 pl-4 lg:p-0 lg:top-0 lg:w-auto z-40 flex flex-col absolute lg:bg-transparent lg:flex-row lg:relative duration-800 transition-all ease-in"
 			:class="[sideMenuOpen ? 'left-0' : '-left-full']"
 		>
-			<div
-				class="block sm:hidden text-maintext hover:text-accent hover:font-semibold lg:transition-all"
-			>
-				<a
-					class="font-normal m-2.5 text-md font-main no-underline cursor-pointer flex lg:flex-col"
-					href="/"
-				>
-					<FontAwesomeIcon
-						class="w-8 mr-2 -ml-2 lg:h-6 lg:w-auto lg:m-0"
-						:icon="faHome"
-						size="xl"
-					/>
-					Главная
-				</a>
-			</div>
 			<div v-for="link in Links" class="text-maintext">
 				<a
 					v-if="link.visible"
-					class="font-normal hover:text-accent hover:font-semibold lg:transition-all m-2.5 text-md lg:w-15 xl:w-20 items-center font-main no-underline cursor-pointer flex lg:flex-col"
+					class="font-normal hover:text-accent hover:font-semibold lg:transition-all m-2.5 text-md lg:w-15 xl:w-16 items-center font-main no-underline cursor-pointer flex lg:flex-col"
 					:href="link.link"
+					:class="link.addClass"
+					v-on:click="() => link.action && link.action(true)"
 				>
 					<FontAwesomeIcon
 						class="w-8 mr-2 -ml-2 h-7 lg:h-5 xl:h-6 lg:w-auto lg:m-0"

@@ -27,8 +27,7 @@ const router = createRouter({
 			path: "/login",
 			name: "login",
 			beforeEnter: unauthorizedRoute,
-			redirect: "/",
-			//component: () => import("@/pages/LoginPage.vue")
+			component: () => import("@/pages/LoginPage.vue"),
 		},
 		{
 			path: "/:pathMatch(.*)*",
