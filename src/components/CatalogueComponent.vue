@@ -74,13 +74,13 @@ const getGenreNoun = (number: number) =>
 							class="mb-2 w-fit"
 						>
 							<a
-								class="font-normal font-main hover:text-contrast text-black break-words transition-colors duration-300 text-xs sm:text-base"
+								class="font-normal font-main hover:text-contrast text-mainblack break-words transition-colors duration-300 text-xs sm:text-base"
 								:href="'/genre/' + genre.translitName"
 								>{{ genre.name }}</a
 							>
 							<span
 								v-if="genre.bookCount > 0"
-								class="ml-1 text-sm font-light text-black/60 underline decoration-dotted select-none"
+								class="ml-1 text-sm font-light text-mainblack/60 underline decoration-dotted select-none"
 								>{{ genre.bookCount ?? 0 }}
 								{{ getBookNoun(genre.bookCount ?? 0) }}</span
 							>
@@ -99,7 +99,7 @@ const getGenreNoun = (number: number) =>
 				class="inline-block w-full pl-4 sm:pl-[40px] lg:pl-[60px] pb-[30px]"
 			>
 				<a
-					class="text-black hover:text-black/60 transition-all break-words duration-200 text-sm sm:text-xl font-semibold font-main mb-5"
+					class="text-mainblack hover:text-mainblack/60 transition-all break-words duration-200 text-sm sm:text-xl font-semibold font-main mb-5"
 					:href="'/genre/' + category.translitName"
 					>{{ category.name }}</a
 				>
@@ -117,7 +117,7 @@ const getGenreNoun = (number: number) =>
 									  getBookNoun(genre.bookCount ?? 0)
 									: ''
 							"
-							class="mb-1 font-normal font-main hover:text-contrast text-black break-words transition-colors duration-300 text-xs sm:text-base"
+							class="mb-1 font-normal font-main hover:text-contrast text-mainblack break-words transition-colors duration-300 text-xs sm:text-base"
 							:href="'/genre/' + genre.translitName"
 							>{{ genre.name }}</a
 						>
@@ -127,7 +127,7 @@ const getGenreNoun = (number: number) =>
 				<a @click="currectCategory = category" class="cursor-pointer">
 					<p
 						v-if="category.genres.length > 5"
-						class="underline decoration-dotted hover:text-contrast text-black/50 font-normal transition-colors duration-300 text-xs sm:text-base"
+						class="underline decoration-dotted hover:text-contrast text-mainblack/50 font-normal transition-colors duration-300 text-xs sm:text-base"
 					>
 						Все {{ category.genres.length }}
 					</p>

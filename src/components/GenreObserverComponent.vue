@@ -12,7 +12,7 @@ const categories = await service.getAll();
 		class="h-auto w-full px-[2%] md:pl-[6%] md:pr-[2%] py-8 flex flex-col flex-1"
 	>
 		<span
-			class="text-black font-bold font-main text-xl md:text-3xl mb-2 md:mb-4"
+			class="text-mainblack font-bold font-main text-xl md:text-3xl mb-2 md:mb-4"
 			>Жанры</span
 		>
 		<div v-for="category in categories" class="mb-2 mt-4 flex flex-col">
@@ -31,7 +31,7 @@ const categories = await service.getAll();
 					v-for="genre in category.genres"
 					class="cursor-pointer mr-4 md:mr-8 mb-1 md:mb-2 text-sm md:text-base sm:font-semibold text-contrast hover:text-contrast/60"
 					><span class="transition-all duration-200">{{ genre.name }}</span
-					><span class="font-main !text-black/60 ml-1">{{
+					><span class="font-main !text-mainblack/60 ml-1">{{
 						genre.bookCount ?? ""
 					}}</span></a
 				>

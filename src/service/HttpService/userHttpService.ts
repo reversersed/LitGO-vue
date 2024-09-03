@@ -2,6 +2,7 @@ import type User from "@/models/user.model";
 import GenericHttpService from "./genericHttpService";
 import type { UserLoginModel } from "@/models/user.model";
 import axios from "axios";
+import type HttpError from "@/models/httperror.model";
 
 export default class UserHttpService extends GenericHttpService<User> {
 	constructor() {
@@ -13,6 +14,20 @@ export default class UserHttpService extends GenericHttpService<User> {
 			.get(this.buildPath("/auth"))
 			.then((response) => response.data as Promise<UserLoginModel>)
 			.catch((error) => undefined);
+
+		return response;
+	}
+	async login(
+		login: string,
+		password: string
+	): Promise<UserLoginModel | HttpError> {
+		const response = await axios
+			.post(this.buildPath("/login"), { login: login, password: password })
+			.then((response) => response.data as Promise<UserLoginModel>)
+			.catch((error) => {
+				console.log(error);
+				return error as Promise<HttpError>;
+			});
 
 		return response;
 	}

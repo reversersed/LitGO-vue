@@ -14,8 +14,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { ref } from "vue";
 import CatalogueComponent from "@/components/CatalogueComponent.vue";
 import SkeletonPlaceholder from "./SkeletonPlaceholder.vue";
-import { useUser } from "@/service/plugins/userStatePlugin";
 import LoginForm from "./LoginForm.vue";
+import { useUser } from "@/service/plugins/userStatePlugin";
 
 const userState = useUser();
 const sideMenuOpen = ref(false);
@@ -82,11 +82,11 @@ const Links = [
 		v-if="loginModalOpen"
 	>
 		<div
-			class="w-full h-full absolute bg-black/80 top-0"
+			class="w-full h-full absolute bg-mainblack/80 top-0"
 			@click="() => setLoginModal(false)"
 		/>
 		<div
-			class="bg-white z-10 -translate-y-20 max-w-[300px] xl:max-w-[500px] px-[30px] rounded-2xl flex grow-[1] pb-10 flex-col items-center justify-center"
+			class="bg-mainwhite z-10 -translate-y-20 max-w-[300px] xl:max-w-[500px] px-[30px] rounded-2xl flex grow-[1] pb-10 flex-col items-center justify-center"
 		>
 			<a
 				class="self-end mt-2 -mr-4 transition-all duration-300 rotate-0 hover:rotate-180 z-50 cursor-pointer"
@@ -98,7 +98,7 @@ const Links = [
 			<h1 class="mb-5 text-xl font-semibold tracking-wider font-main">
 				Авторизация
 			</h1>
-			<LoginForm />
+			<LoginForm v-on:success="() => setLoginModal(false)" />
 		</div>
 	</div>
 	<!-- main block -->
@@ -154,7 +154,7 @@ const Links = [
 										</ul>
 
 										<p
-											class="mt-1 underline decoration-dotted hover:text-contrast text-black/50 font-normal transition-colors duration-300 text-xs sm:text-base"
+											class="mt-1 underline decoration-dotted hover:text-contrast text-mainblack/50 font-normal transition-colors duration-300 text-xs sm:text-base"
 										>
 											<SkeletonPlaceholder />
 										</p>
@@ -169,7 +169,7 @@ const Links = [
 						</template>
 					</Suspense>
 					<div
-						class="bg-black/50 w-full h-full top-0 absolute"
+						class="bg-mainblack/50 w-full h-full top-0 absolute"
 						@click="setCatalogue(false)"
 					/>
 				</div>
@@ -203,9 +203,9 @@ const Links = [
 			<div v-for="link in Links" class="text-maintext">
 				<a
 					v-if="link.visible"
-					class="font-normal hover:text-accent hover:font-semibold lg:transition-all m-2.5 text-md lg:w-15 xl:w-16 items-center font-main no-underline cursor-pointer flex lg:flex-col"
+					class="font-normal hover:text-accent hover:font-semibold lg:transition-all m-2.5 text-md lg:w-15 xl:w-18 items-center font-main no-underline cursor-pointer flex lg:flex-col"
 					:href="link.link"
-					:class="link.addClass"
+					:class="link.addClass === undefined ? '' : link.addClass"
 					v-on:click="() => link.action && link.action(true)"
 				>
 					<FontAwesomeIcon

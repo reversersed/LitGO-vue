@@ -65,7 +65,7 @@ const searchRedirect = () => {
 
 <template>
 	<div
-		class="z-50 bg-white lg:w-auto rounded-2xl border-2 w-[70%] mr-[36px] sm:mr-0 border-mainshadow flex sm:min-w-[100px] md:min-w-[300px] items-center h-10 lg:h-12 lg:relative absolute top-1 lg:left-0 left-[15%] sm:left-[18%] lg:top-0"
+		class="z-50 bg-mainwhite lg:w-auto rounded-2xl border-2 w-[70%] mr-[36px] sm:mr-0 border-mainshadow flex sm:min-w-[100px] md:min-w-[300px] items-center h-10 lg:h-12 lg:relative absolute top-1 lg:left-0 left-[15%] sm:left-[18%] lg:top-0"
 	>
 		<input
 			placeholder="Искать на LitGO"
@@ -97,7 +97,7 @@ const searchRedirect = () => {
 		</a>
 	</div>
 	<div
-		class="absolute mt-2 shadow-sm shadow-black flex flex-col transition-all ease-in-out duration-200 w-auto max-w-[90%] sm:max-w-[70%] 2xl:max-w-[40%] lg:max-w-[50%] h-auto max-h-[90%] overflow-y-auto overflow-x-hidden bg-white rounded z-50 p-5"
+		class="absolute mt-2 shadow-sm shadow-mainblack flex flex-col transition-all ease-in-out duration-200 w-auto max-w-[90%] sm:max-w-[70%] 2xl:max-w-[40%] lg:max-w-[50%] h-auto max-h-[90%] overflow-y-auto overflow-x-hidden bg-mainwhite rounded z-50 p-5"
 		:class="[
 			suggestionOpen && suggestionBooks.length > 0 && query.length > 0
 				? 'visible opacity-100'

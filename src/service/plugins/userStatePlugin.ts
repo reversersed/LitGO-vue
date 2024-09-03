@@ -1,5 +1,4 @@
 import { inject, reactive, type App } from "vue";
-import UserHttpService from "../HttpService/userHttpService";
 import type { UserLoginModel } from "@/models/user.model";
 
 interface userStateProps {
