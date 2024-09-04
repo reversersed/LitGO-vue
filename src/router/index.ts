@@ -29,6 +29,12 @@ const router = createRouter({
 			beforeEnter: unauthorizedRoute,
 			component: () => import("@/pages/LoginPage.vue"),
 		},
+		/*{
+			path: "/signin",
+			name: "signin",
+			beforeEnter: unauthorizedRoute,
+			component: () => import("@/pages/RegistrationPage.vue"),
+		},*/
 		{
 			path: "/:pathMatch(.*)*",
 			redirect: "/", // 404 redirecting to index

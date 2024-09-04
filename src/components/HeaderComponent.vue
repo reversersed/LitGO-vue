@@ -88,7 +88,7 @@ const Links = [
 			@click="() => setLoginModal(false)"
 		/>
 		<div
-			class="bg-mainwhite z-10 -translate-y-20 max-w-[300px] xl:max-w-[500px] px-[30px] rounded-2xl flex grow-[1] pb-10 flex-col items-center justify-center"
+			class="bg-mainwhite z-10 -translate-y-20 max-w-[300px] xl:max-w-[500px] px-[30px] rounded-2xl flex grow-[1] pb-5 flex-col items-center justify-center"
 		>
 			<a
 				class="self-end mt-2 -mr-4 transition-all duration-300 rotate-0 hover:rotate-180 z-50 cursor-pointer"
