@@ -7,7 +7,7 @@ const unauthorizedRoute = (): string | void => {
 };
 const authorizedRoute = (): string | void => {
 	let state = useUser();
-	if (state === undefined || !state.isAuthorized) return "/";
+	if (state === undefined || !state.isAuthorized) return "/login";
 };
 
 const router = createRouter({

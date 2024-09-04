@@ -1,6 +1,5 @@
 import Category from "@/models/category.model";
 import GenericHttpService from "./genericHttpService";
-import axios from "axios";
 
 export default class CategoryHttpService extends GenericHttpService<Category> {
 	constructor() {
@@ -8,7 +7,7 @@ export default class CategoryHttpService extends GenericHttpService<Category> {
 	}
 
 	async getAll(): Promise<Category[]> {
-		const response = await axios
+		const response = await this.axios
 			.get(this.buildPath("/all"))
 			.then((response) => response.data as Promise<Category[]>)
 			.catch((error) => []);

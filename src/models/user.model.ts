@@ -13,7 +13,6 @@ export default class User {
 }
 
 export interface UserLoginModel {
-	id: string;
 	login: string;
 	roles: string[];
 }

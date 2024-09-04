@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import LoginForm from "@/components/LoginForm.vue";
-import useRouter from "@/service/plugins/routerProvidePlugin";
 
-const router = useRouter();
+const pushToIndex = () => (window.location.href = "/");
 </script>
 
 <template>
@@ -11,7 +10,7 @@ const router = useRouter();
 	>
 		<h1 class="text-xl font-semibold font-main mb-5">Авторизация</h1>
 		<div class="w-fit sm:w-[30%] md:w-[35%] lg:w-[25%] xl:w-[20%] h-auto">
-			<LoginForm v-on:success="() => router?.push('/')" />
+			<LoginForm v-on:success="() => pushToIndex()" />
 		</div>
 	</div>
 </template>

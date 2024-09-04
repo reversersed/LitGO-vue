@@ -1,9 +1,11 @@
 import serverConfig from "@/config/server.config";
 import type { IHttpService } from "./httpService";
+import axios, { Axios } from "axios";
 
 export default abstract class GenericHttpService<T> implements IHttpService<T> {
 	private serverString: string;
 	private controllerName: string;
+	protected axios: Axios;
 
 	constructor(controllerName: string) {
 		this.serverString = `${serverConfig.serverString}:${serverConfig.serverPort}/${serverConfig.serverEntryPoint}`;
@@ -14,11 +16,20 @@ export default abstract class GenericHttpService<T> implements IHttpService<T> {
 				? controllerName.slice(0, controllerName.length - 1)
 				: controllerName;
 		this.controllerName = controllerName;
+		this.axios = axios.create({
+			baseURL: this.serverString,
+			headers: this.getDefaultHeaders(),
+			withCredentials: true,
+		});
 	}
-
+	private getDefaultHeaders() {
+		return {
+			"Content-Type": serverConfig.serverContentType,
+			"Access-Control-Expose-Headers": ["Cookie"],
+		};
+	}
 	protected buildPath(pathPart?: string): string {
 		return (
-			this.serverString +
 			this.controllerName +
 			(pathPart &&
 				(pathPart[0] === "/" || pathPart[0] === "?"

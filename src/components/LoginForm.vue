@@ -3,9 +3,10 @@ import UserHttpService from "@/service/HttpService/userHttpService";
 import { OnUserLogin } from "@/service/plugins/userStatePlugin";
 import { ref } from "vue";
 import type { UserLoginModel } from "@/models/user.model";
-import type HttpError from "@/models/httperror.model";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import type HttpError from "@/models/httperror.model";
+import { isHttpError } from "@/models/httperror.model";
 
 const loginAttempting = ref(false)
 const emit = defineEmits(["success"]);
@@ -40,7 +41,7 @@ async function attempLogin(this: any, e: Event) {
 			formModel.value.login,
 			formModel.value.password
 		);
-		if (<HttpError>response) {
+		if (isHttpError(response)) {
 			formModel.value.errAttempt = "Неправильный логин или пароль";
 		} else {
 			OnUserLogin(response as UserLoginModel);
@@ -52,7 +53,7 @@ async function attempLogin(this: any, e: Event) {
 </script>
 
 <template>
-	<form @submit="attempLogin" class="flex flex-col gap-5 w-full items-center">
+	<form @submit="attempLogin" class="flex flex-col gap-2 w-full items-center">
 		<div class="flex flex-col w-full">
 			<input
 				type="text"
@@ -79,10 +80,10 @@ async function attempLogin(this: any, e: Event) {
 				>Логин или почта</label
 			>
 			<p
-				v-if="formModel.errLogin !== undefined"
+				:class="formModel.errLogin !== undefined ? 'visible' : 'collapse'"
 				class="text-sm text-error ml-2 -mt-[2px] select-none"
 			>
-				{{ formModel.errLogin }}
+				{{ formModel.errLogin+" " }}
 			</p>
 		</div>
 		<div class="flex flex-col w-full">
@@ -111,14 +112,14 @@ async function attempLogin(this: any, e: Event) {
 				>Пароль</label
 			>
 			<p
-				v-if="formModel.errPassword !== undefined"
+				:class="formModel.errPassword !== undefined ? 'visible' : 'invisible'"
 				class="text-sm text-error ml-2 -mt-[2px] select-none"
 			>
-				{{ formModel.errPassword }}
+				{{ formModel.errPassword+" " }}
 			</p>
 		</div>
-		<p v-if="formModel.errAttempt" class="text-sm text-error -mt-5">
-			{{ formModel.errAttempt }}
+		<p :class="formModel.errAttempt !== undefined ? 'visible' : 'invisible'" class="text-sm text-error -mt-5 select-none">
+			{{ formModel.errAttempt+" " }}
 		</p>
 		<input
 			type="submit"
@@ -129,7 +130,7 @@ async function attempLogin(this: any, e: Event) {
 			:icon="faSpinner"
 			spin-pulse
 			size="xl"
-			class="text-maintext -mt-12 select-none"
+			class="text-maintext -mt-9 select-none"
             v-if="loginAttempting"
 		/></input>
 	</form>

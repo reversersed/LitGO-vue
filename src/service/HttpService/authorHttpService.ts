@@ -1,6 +1,5 @@
 import type Author from "@/models/author.model";
 import GenericHttpService from "@/service/HttpService/genericHttpService";
-import axios from "axios";
 
 export default class AuthorHttpService extends GenericHttpService<Author> {
 	constructor() {
@@ -8,7 +7,7 @@ export default class AuthorHttpService extends GenericHttpService<Author> {
 	}
 
 	async getSuggestion(query: string): Promise<Author[]> {
-		let response = await axios
+		let response = await this.axios
 			.get(this.buildPath("/suggest?query=" + query))
 			.then((response) => response.data.authors as Promise<Author[]>)
 			.catch((error) => []);

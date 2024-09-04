@@ -7,7 +7,7 @@ import { OnUserLogin } from "@/service/plugins/userStatePlugin";
 </script>
 
 <script lang="ts">
-new UserHttpService()
+await new UserHttpService()
 	.checkForAuthorization()
 	.then((response) => response !== undefined && OnUserLogin(response));
 </script>

@@ -16,11 +16,13 @@ import CatalogueComponent from "@/components/CatalogueComponent.vue";
 import SkeletonPlaceholder from "./SkeletonPlaceholder.vue";
 import LoginForm from "./LoginForm.vue";
 import { useUser } from "@/service/plugins/userStatePlugin";
+import useRouter from "@/service/plugins/routerProvidePlugin";
 
 const userState = useUser();
 const sideMenuOpen = ref(false);
 const catalogueOpen = ref(false);
 const loginModalOpen = ref(false);
+const reloadPage = () => (window.location.href = window.location.href);
 const setCatalogue = (open: boolean) => {
 	catalogueOpen.value = open;
 	sideMenuOpen.value = false;
@@ -98,7 +100,7 @@ const Links = [
 			<h1 class="mb-5 text-xl font-semibold tracking-wider font-main">
 				Авторизация
 			</h1>
-			<LoginForm v-on:success="() => setLoginModal(false)" />
+			<LoginForm v-on:success="() => reloadPage()" />
 		</div>
 	</div>
 	<!-- main block -->
@@ -197,25 +199,23 @@ const Links = [
 			<SearchFieldComponent />
 		</div>
 		<div
-			class="bg-mainbg lg:left-0 top-8 w-full mt-4 mb-2 pl-4 lg:p-0 lg:top-0 lg:w-auto z-40 flex flex-col absolute lg:bg-transparent lg:flex-row lg:relative duration-800 transition-all ease-in"
+			class="bg-mainbg lg:left-0 top-8 w-full mt-2 mb-1 lg:top-0 lg:w-auto z-40 flex flex-col absolute lg:bg-transparent lg:flex-row lg:relative duration-800 transition-all ease-in"
 			:class="[sideMenuOpen ? 'left-0' : '-left-full']"
 		>
 			<div v-for="link in Links" class="text-maintext">
 				<a
 					v-if="link.visible"
-					class="font-normal hover:text-accent hover:font-semibold lg:transition-all m-2.5 text-md lg:w-15 xl:w-18 items-center font-main no-underline cursor-pointer flex lg:flex-col"
+					class="font-normal px-2 py-2 hover:text-accent hover:font-semibold lg:hover:text-maintext lg:hover:font-normal lg:hover:bg-accent/30 rounded-md transition-all m-2.5 text-md lg:w-15 xl:w-18 items-center font-main no-underline cursor-pointer flex lg:flex-col"
 					:href="link.link"
 					:class="link.addClass === undefined ? '' : link.addClass"
 					v-on:click="() => link.action && link.action(true)"
 				>
 					<FontAwesomeIcon
-						class="w-8 mr-2 -ml-2 h-7 lg:h-5 xl:h-6 lg:w-auto lg:m-0"
+						class="w-8 mr-2 -ml-2 h-7 lg:h-5 xl:h-5 lg:w-auto lg:m-0"
 						:icon="link.icon"
 						size="xl"
 					/>
-					<span class="text-base lg:text-xs xl:text-base">{{
-						link.label
-					}}</span>
+					<span class="text-base lg:text-xs xl:text-sm">{{ link.label }}</span>
 				</a>
 			</div>
 		</div>
