@@ -5,11 +5,10 @@ import { ref } from "vue";
 import type { UserLoginModel } from "@/models/user.model";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import type HttpError from "@/models/httperror.model";
 import { isHttpError } from "@/models/httperror.model";
 
 const loginAttempting = ref(false)
-const emit = defineEmits(["success"]);
+const emits = defineEmits(["success","loginAttempting"]);
 let formModel = ref<{
 	login: string;
 	password: string;
@@ -27,6 +26,8 @@ const service = new UserHttpService();
 async function attempLogin(this: any, e: Event) {
 	e.preventDefault();
     loginAttempting.value = true;
+	emits("loginAttempting", loginAttempting.value)
+
 	formModel.value.errAttempt = undefined;
 	if (formModel.value.login.length == 0)
 		formModel.value.errLogin = "Требуется ввести логин";
@@ -45,10 +46,11 @@ async function attempLogin(this: any, e: Event) {
 			formModel.value.errAttempt = "Неправильный логин или пароль";
 		} else {
 			OnUserLogin(response as UserLoginModel);
-			emit("success");
+			emits("success");
 		}
 	}
     loginAttempting.value = false;
+	emits("loginAttempting", loginAttempting.value)
 }
 </script>
 
@@ -134,5 +136,5 @@ async function attempLogin(this: any, e: Event) {
             v-if="loginAttempting"
 		/></input>
 	</form>
-	<p class="text-xs mt-2 text-accent/70 select-none w-full text-center">Еще нет аккаунта? <a href="/signin" class="text-accent/80 hover:text-contrast transition-all duration-200">Зарегистрироваться</a></p>
+	<p class="text-xs mt-2  select-none w-full text-center":class="loginAttempting?'text-accent/40':'text-accent/70'">Еще нет аккаунта? <a :href="loginAttempting?undefined:'/signin'" :class="loginAttempting?'text-accent/40':'hover:text-contrast'" class="text-accent/80 transition-all duration-200">Зарегистрироваться</a></p>
 </template>

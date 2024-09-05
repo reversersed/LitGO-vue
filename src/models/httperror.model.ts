@@ -11,6 +11,14 @@ export default interface HttpError {
 	message: string;
 	type: string;
 }
+export function createNullError(): HttpError {
+	return {
+		details: [],
+		code: 500,
+		message: "server not responding",
+		type: "InternalServerError",
+	};
+}
 export function isHttpError(object: any): boolean {
 	return (object as HttpError).details !== undefined;
 }

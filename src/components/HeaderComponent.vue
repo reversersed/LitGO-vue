@@ -16,13 +16,15 @@ import CatalogueComponent from "@/components/CatalogueComponent.vue";
 import SkeletonPlaceholder from "./SkeletonPlaceholder.vue";
 import LoginForm from "./LoginForm.vue";
 import { useUser } from "@/service/plugins/userStatePlugin";
-import useRouter from "@/service/plugins/routerProvidePlugin";
 
 const userState = useUser();
 const sideMenuOpen = ref(false);
 const catalogueOpen = ref(false);
 const loginModalOpen = ref(false);
 const reloadPage = () => (window.location.href = window.location.href);
+const loginAttemptingState = ref(false);
+const loginAttempingStateHandle = (state: boolean) =>
+	(loginAttemptingState.value = state);
 const setCatalogue = (open: boolean) => {
 	catalogueOpen.value = open;
 	sideMenuOpen.value = false;
@@ -31,7 +33,9 @@ const setSideMenu = (open: boolean) => {
 	catalogueOpen.value = false;
 	sideMenuOpen.value = open;
 };
-const setLoginModal = (open: boolean) => (loginModalOpen.value = open);
+const setLoginModal = (open: boolean) => {
+	if (!loginAttemptingState.value) loginModalOpen.value = open;
+};
 const Links = [
 	{
 		link: "/",
@@ -91,16 +95,24 @@ const Links = [
 			class="bg-mainwhite z-10 -translate-y-20 max-w-[300px] xl:max-w-[500px] px-[30px] rounded-2xl flex grow-[1] pb-5 flex-col items-center justify-center"
 		>
 			<a
-				class="self-end mt-2 -mr-4 transition-all duration-300 rotate-0 hover:rotate-180 z-50 cursor-pointer"
+				:class="loginAttemptingState ? '' : 'hover:rotate-180 cursor-pointer'"
+				class="self-end mt-2 -mr-4 transition-all duration-300 z-50"
 				><FontAwesomeIcon
 					:icon="faClose"
 					size="xl"
+					:class="loginAttemptingState ? 'text-mainblack/40' : 'text-mainblack'"
 					@click="() => setLoginModal(false)"
 			/></a>
-			<h1 class="mb-5 text-xl font-semibold tracking-wider font-main">
+			<h1
+				class="mb-5 text-xl font-semibold tracking-wider font-main"
+				:class="loginAttemptingState ? 'text-accent/40' : 'text-accent'"
+			>
 				Авторизация
 			</h1>
-			<LoginForm v-on:success="() => reloadPage()" />
+			<LoginForm
+				v-on:success="() => reloadPage()"
+				@login-attempting="loginAttempingStateHandle"
+			/>
 		</div>
 	</div>
 	<!-- main block -->
