@@ -134,5 +134,5 @@ async function attempLogin(this: any, e: Event) {
             v-if="loginAttempting"
 		/></input>
 	</form>
-	<p class="text-xs mt-2 text-accent/70 select-none">Еще нет аккаунта? <a href="/signin" class="text-accent/80 hover:text-contrast transition-all duration-200">Зарегистрироваться</a></p>
+	<p class="text-xs mt-2 text-accent/70 select-none w-full text-center">Еще нет аккаунта? <a href="/signin" class="text-accent/80 hover:text-contrast transition-all duration-200">Зарегистрироваться</a></p>
 </template>
