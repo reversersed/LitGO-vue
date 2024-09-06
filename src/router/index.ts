@@ -1,14 +1,6 @@
-import { useUser } from "@/service/plugins/userStatePlugin";
 import { createRouter, createWebHistory } from "vue-router";
-
-const unauthorizedRoute = (): string | void => {
-	let state = useUser();
-	if (state === undefined || state.isAuthorized) return "/";
-};
-const authorizedRoute = (): string | void => {
-	let state = useUser();
-	if (state === undefined || !state.isAuthorized) return "/login";
-};
+import loadLayoutMiddleware from "./middleware/layoutMiddleware";
+import identityMiddleware from "./middleware/identityMiddleware";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,24 +8,29 @@ const router = createRouter({
 		{
 			path: "/",
 			name: "home",
-			component: () => import("@/pages/MainPage.vue"),
+			component: async () => await import("@/pages/MainPage.vue"),
 		},
 		{
 			path: "/genres",
 			name: "genres",
-			component: () => import("@/pages/GenreObserverPage.vue"),
+			component: async () => await import("@/pages/GenreObserverPage.vue"),
 		},
 		{
 			path: "/login",
 			name: "login",
-			beforeEnter: unauthorizedRoute,
-			component: () => import("@/pages/LoginPage.vue"),
+			component: async () => await import("@/pages/LoginPage.vue"),
+			meta: {
+				authorized: false,
+			},
 		},
 		/*{
 			path: "/signin",
 			name: "signin",
 			beforeEnter: unauthorizedRoute,
-			component: () => import("@/pages/RegistrationPage.vue"),
+			component: async () => await import("@/pages/RegistrationPage.vue"),
+			meta: {
+				authorized: false,
+			},
 		},*/
 		{
 			path: "/:pathMatch(.*)*",
@@ -41,5 +38,7 @@ const router = createRouter({
 		},
 	],
 });
+router.beforeEach(loadLayoutMiddleware);
+router.beforeEach(identityMiddleware);
 
 export default router;

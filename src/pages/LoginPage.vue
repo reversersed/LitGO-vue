@@ -10,7 +10,6 @@ const pushToIndex = () => (window.location.href = "/");
 
 <template>
 	<div
-		id="d"
 		class="flex flex-col justify-center items-center mt-[20%] md:mt-[15%] lg:mt-[10%]"
 	>
 		<h1

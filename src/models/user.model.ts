@@ -16,3 +16,8 @@ export interface UserLoginModel {
 	login: string;
 	roles: string[];
 }
+
+export enum UserRoles {
+	user = "user",
+	admin = "admin",
+}

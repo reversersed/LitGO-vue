@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import HeaderComponent from "@/components/HeaderComponent.vue";
-import FooterComponent from "@/components/FooterComponent.vue";
 import UserHttpService from "@/service/HttpService/userHttpService";
 import { OnUserLogin } from "@/service/plugins/userStatePlugin";
+import AppLayout from "./layouts/AppLayout.vue";
 </script>
 
 <script lang="ts">
@@ -13,9 +12,7 @@ await new UserHttpService()
 </script>
 
 <template>
-	<HeaderComponent />
-	<Suspense>
+	<AppLayout>
 		<RouterView />
-	</Suspense>
-	<FooterComponent />
+	</AppLayout>
 </template>
