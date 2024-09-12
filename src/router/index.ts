@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import loadLayoutMiddleware from "./middleware/layoutMiddleware";
 import identityMiddleware from "./middleware/identityMiddleware";
+import { AppLayoutEnum } from "@/layouts/layouts.enum";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,7 @@ const router = createRouter({
 			component: async () => await import("@/pages/LoginPage.vue"),
 			meta: {
 				authorized: false,
+				layout: AppLayoutEnum.login,
 			},
 		},
 		/*{

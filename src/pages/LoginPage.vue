@@ -9,9 +9,7 @@ const pushToIndex = () => (window.location.href = "/");
 </script>
 
 <template>
-	<div
-		class="flex flex-col justify-center items-center mt-[20%] md:mt-[15%] lg:mt-[10%]"
-	>
+	<div class="flex flex-col justify-center items-center">
 		<h1
 			class="mb-5 text-xl font-semibold tracking-wider font-main"
 			:class="loginAttemptingState ? 'text-accent/40' : 'text-accent'"
