@@ -31,6 +31,12 @@ export default class UserHttpService extends GenericHttpService<User> {
 			});
 		return response;
 	}
+	async logout(): Promise<void> {
+		const response = await this.axios
+			.post(this.buildPath("/logout"))
+			.then((response) => response.status === 204)
+			.catch((error) => false);
+	}
 	getAll(): Promise<User[]> {
 		throw new Error("Method not implemented.");
 	}

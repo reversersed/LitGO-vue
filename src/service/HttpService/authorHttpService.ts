@@ -9,7 +9,7 @@ export default class AuthorHttpService extends GenericHttpService<Author> {
 	async getSuggestion(query: string): Promise<Author[]> {
 		let response = await this.axios
 			.get(this.buildPath("/suggest?query=" + query))
-			.then((response) => response.data.authors as Promise<Author[]>)
+			.then((response) => response.data as Promise<Author[]>)
 			.catch((error) => []);
 		return response;
 	}

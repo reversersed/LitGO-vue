@@ -5,29 +5,28 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>LitGO</title>
+		<script>
+			if (
+				window.matchMedia &&
+				window.matchMedia("(prefers-color-scheme: dark)").matches
+			) {
+				document.documentElement.classList.add("dark");
+			}
+
+			window
+				.matchMedia("(prefers-color-scheme: dark)")
+				.addEventListener("change", (event) => {
+					if (event.matches) {
+						document.documentElement.classList.add("dark");
+					} else {
+						document.documentElement.classList.remove("dark");
+					}
+				});
+		</script>
 	</head>
 
 	<body class="h-svh font-main bg-mainwhite">
 		<div id="app" class="h-svh"></div>
-		<script type="module" src="/src/main.ts" />
+		<script type="module" src="/src/main.ts"></script>
 	</body>
-
-	<script>
-		if (
-			window.matchMedia &&
-			window.matchMedia("(prefers-color-scheme: dark)").matches
-		) {
-			document.documentElement.classList.add("dark");
-		}
-
-		window
-			.matchMedia("(prefers-color-scheme: dark)")
-			.addEventListener("change", (event) => {
-				if (event.matches) {
-					document.documentElement.classList.add("dark");
-				} else {
-					document.documentElement.classList.remove("dark");
-				}
-			});
-	</script>
 </html>

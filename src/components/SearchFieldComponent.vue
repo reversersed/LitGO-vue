@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type Author from "@/models/author.model";
 import AuthorHttpService from "@/service/HttpService/authorHttpService";
+import BookHttpService from "@/service/HttpService/bookHttpService";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { computed, ref, watch } from "vue";
@@ -23,6 +24,7 @@ interface book {
 }
 
 let authorService = new AuthorHttpService();
+let bookService = new BookHttpService();
 
 const suggestionBooks = ref<book[]>([]);
 const suggestionAuthors = ref<Author[]>([]);
@@ -39,20 +41,7 @@ const searchsuggestionBooks = async (query: string) => {
 			}, 150);
 			return;
 		}
-		suggestionBooks.value = [
-			{
-				id: "1",
-				name: "Похождения дебилов",
-				cover: "https://cv8.litres.ru/pub/c/cover_330/70920784.webp",
-				translitname: "pohozdeniya-debilov-213321342",
-			},
-			{
-				id: "2",
-				name: "Как раскидывать смоки на мираже: полный туториал для идиотов",
-				cover: "https://cv6.litres.ru/pub/c/cover_330/70894063.webp",
-				translitname: "ya-ebal-eto-pisat-421142241",
-			},
-		];
+		suggestionBooks.value = await bookService.getSuggestion(query);
 		suggestionAuthors.value = await authorService.getSuggestion(query);
 	}, 500);
 };
@@ -99,7 +88,9 @@ const searchRedirect = () => {
 	<div
 		class="absolute mt-2 shadow-sm shadow-mainblack flex flex-col transition-all ease-in-out duration-200 w-auto max-w-[90%] sm:max-w-[70%] 2xl:max-w-[40%] lg:max-w-[50%] h-auto max-h-[90%] overflow-y-auto overflow-x-hidden bg-mainwhite rounded z-50 p-5"
 		:class="[
-			suggestionOpen && suggestionBooks.length > 0 && query.length > 0
+			suggestionOpen &&
+			(suggestionBooks.length > 0 || suggestionAuthors.length > 0) &&
+			query.length > 0
 				? 'visible opacity-100'
 				: 'collapse opacity-0',
 		]"
@@ -127,6 +118,11 @@ const searchRedirect = () => {
 						<span class="flex-wrap font-normal sm:font-semibold">{{
 							book.name
 						}}</span>
+						<p
+							class="collapse h-0 sm:visible max-h-[78px] max-w-fit sm:h-auto line-clamp-2 md:line-clamp-3 font-normal text-ellipsis"
+						>
+							{{ book.description }}
+						</p>
 					</div>
 				</div>
 			</a>

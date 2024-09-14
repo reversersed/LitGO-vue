@@ -10,21 +10,30 @@ import {
 	faHome,
 	faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import UserHttpService from "@/service/HttpService/userHttpService";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { ref } from "vue";
 import CatalogueComponent from "@/components/CatalogueComponent.vue";
 import SkeletonPlaceholder from "./SkeletonPlaceholder.vue";
 import LoginForm from "./LoginForm.vue";
 import { useUser } from "@/service/plugins/userStatePlugin";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
+const logoutUser = async (e) => {
+	e.preventDefault()
+	logoutAttemptingState.value = true
+	await new UserHttpService().logout().then(() => reloadPage())
+}
 const userState = useUser();
 const sideMenuOpen = ref(false);
 const catalogueOpen = ref(false);
 const loginModalOpen = ref(false);
+const logoutModalOpen = ref(false);
 const reloadPage = () => (window.location.href = window.location.href);
 const loginAttemptingState = ref(false);
 const loginAttempingStateHandle = (state: boolean) =>
 	(loginAttemptingState.value = state);
+const logoutAttemptingState = ref(false);
 const setCatalogue = (open: boolean) => {
 	catalogueOpen.value = open;
 	sideMenuOpen.value = false;
@@ -35,6 +44,9 @@ const setSideMenu = (open: boolean) => {
 };
 const setLoginModal = (open: boolean) => {
 	if (!loginAttemptingState.value) loginModalOpen.value = open;
+};
+const setLogoutModal = (open: boolean) => {
+	if (!logoutAttemptingState.value) logoutModalOpen.value = open;
 };
 const Links = [
 	{
@@ -78,10 +90,61 @@ const Links = [
 		icon: faUser,
 		visible: !userState?.isAuthorized,
 	},
+	{
+		action: setLogoutModal,
+		label: "Выйти",
+		icon: faUser,
+		visible: userState?.isAuthorized,
+	},
 ];
 </script>
 
 <template>
+	<!-- logout modal -->
+	<div
+		class="absolute z-[1000] w-dvw h-dvh flex flex-row items-center justify-center"
+		v-if="logoutModalOpen"
+	>
+		<div
+			class="w-full h-full absolute bg-mainblack/80 top-0"
+			@click="() => setLogoutModal(false)"
+		/>
+		<div
+			class="bg-mainwhite z-10 -translate-y-20 max-w-[300px] xl:max-w-[500px] px-[30px] rounded-2xl flex grow-[1] pb-5 flex-col items-center justify-center"
+		>
+			<a
+				:class="loginAttemptingState ? '' : 'hover:rotate-180 cursor-pointer'"
+				class="self-end mt-2 -mr-4 transition-all duration-300 z-50"
+				><FontAwesomeIcon
+					:icon="faClose"
+					size="xl"
+					:class="loginAttemptingState ? 'text-mainblack/40' : 'text-mainblack'"
+					@click="() => setLogoutModal(false)"
+			/></a>
+			<h1
+				class="mb-5 text-xl text-mainblack font-semibold tracking-wider font-main"
+				:class="loginAttemptingState ? 'text-accent/40' : 'text-accent'"
+			>
+				Выход
+			</h1>
+			<span class="text-mainblack text-center mb-5"
+				>Для подтверждения действия нажмите кнопку ниже</span
+			>
+			<input
+			type="submit"
+			@click="logoutUser"
+			:value="!logoutAttemptingState ? 'Выйти из аккаунта' : ''"
+            :disabled="logoutAttemptingState"
+			class="enabled:cursor-pointer w-fit px-6 py-1 bg-error/80 enabled:hover:bg-error enabled:hover:tracking-widest text-maintext rounded-xl transition-all duration-300"
+		><FontAwesomeIcon
+			:icon="faSpinner"
+			spin-pulse
+			size="xl"
+			class="text-maintext -mt-7 select-none"
+            v-if="logoutAttemptingState"
+		/></input>
+		</div>
+	</div>
 	<!-- login modal -->
 	<div
 		class="absolute z-[1000] w-dvw h-dvh flex flex-row items-center justify-center"
