@@ -19,7 +19,7 @@ import LoginForm from "./LoginForm.vue";
 import { useUser } from "@/service/plugins/userStatePlugin";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
-const logoutUser = async (e) => {
+const logoutUser = async (e : Event) => {
 	e.preventDefault()
 	logoutAttemptingState.value = true
 	await new UserHttpService().logout().then(() => reloadPage())

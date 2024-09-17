@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type Author from "@/models/author.model";
+import type Book from "@/models/book.model";
 import AuthorHttpService from "@/service/HttpService/authorHttpService";
 import BookHttpService from "@/service/HttpService/bookHttpService";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -15,18 +16,10 @@ watch(
 	routeQuery,
 	(newQuery) => (query.value = newQuery.query?.toString() ?? "")
 );
-
-interface book {
-	id: string;
-	name: string;
-	cover: string;
-	translitname: string;
-}
-
 let authorService = new AuthorHttpService();
 let bookService = new BookHttpService();
 
-const suggestionBooks = ref<book[]>([]);
+const suggestionBooks = ref<Book[]>([]);
 const suggestionAuthors = ref<Author[]>([]);
 const suggestionOpen = ref(false);
 let searchTimerId: number;
@@ -111,7 +104,7 @@ const searchRedirect = () => {
 					class="flex flex-1 w-full h-auto px-2 py-2 sm:py-4 hover:bg-accent/10 rounded-xl transition-colors duration-200"
 				>
 					<img
-						:src="book.cover"
+						:src="book.picture"
 						class="rounded-full min-w-14 md:min-w-24 h-14 md:h-24 object-cover sm:block hidden"
 					/>
 					<div class="flex ml-2 max-w-full w-fit flex-col">

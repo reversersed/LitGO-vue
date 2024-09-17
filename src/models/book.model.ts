@@ -1,6 +1,3 @@
-import type Author from "./author.model";
-import type Genre from "./genre.models";
-
 export default class Book {
 	public id: string;
 	public name: string;
