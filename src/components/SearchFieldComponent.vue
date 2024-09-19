@@ -112,7 +112,7 @@ const searchRedirect = () => {
 							book.name
 						}}</span>
 						<p
-							class="collapse h-0 sm:visible max-h-[78px] max-w-fit sm:h-auto line-clamp-2 md:line-clamp-3 font-normal text-ellipsis"
+							class="collapse h-0 sm:visible max-h-[78px] max-w-fit sm:h-auto line-clamp-2 font-normal text-ellipsis"
 						>
 							{{ book.description }}
 						</p>

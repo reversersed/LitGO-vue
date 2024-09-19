@@ -1,3 +1,7 @@
+import type Author from "./author.model";
+import type Category from "./category.model";
+import type Genre from "./genre.models";
+
 export default class Book {
 	public id: string;
 	public name: string;
@@ -5,6 +9,9 @@ export default class Book {
 	public description: string;
 	public picture: string;
 	public filepath: string;
+	public genre: Genre;
+	public category: Category;
+	public authors: Author[];
 
 	constructor(
 		_id: string,
@@ -12,7 +19,10 @@ export default class Book {
 		_translitname: string,
 		_description: string,
 		_picture: string,
-		_filepath: string
+		_filepath: string,
+		_genre: Genre,
+		_category: Category,
+		_authors: Author[]
 	) {
 		this.id = _id;
 		this.name = _name;
@@ -20,5 +30,8 @@ export default class Book {
 		this.description = _description;
 		this.picture = _picture;
 		this.filepath = _filepath;
+		this.genre = _genre;
+		this.category = _category;
+		this.authors = _authors;
 	}
 }

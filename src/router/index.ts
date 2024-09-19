@@ -32,6 +32,7 @@ const router = createRouter({
 			component: async () => await import("@/pages/RegistrationPage.vue"),
 			meta: {
 				authorized: false,
+				layout: AppLayoutEnum.login,
 			},
 		},*/
 		{
