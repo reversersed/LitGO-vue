@@ -1,9 +1,10 @@
 interface HttpErrorDetail {
-	field: string | undefined;
-	struct: string | undefined;
-	tag: string | undefined;
-	description: string | undefined;
-	actualvalue: string | undefined;
+	field?: string;
+	struct?: string;
+	tag?: string;
+	tagValue?: string;
+	description?: string;
+	actualvalue?: string;
 }
 export default interface HttpError {
 	details: HttpErrorDetail[];
