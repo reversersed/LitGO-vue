@@ -10,7 +10,27 @@ export default defineConfig({
 	plugins: [
 		vue(),
 		vueJsx(),
-		VitePWA({ registerType: "autoUpdate", devOptions: { enabled: true } }),
+		VitePWA({
+			registerType: "autoUpdate",
+			devOptions: { enabled: true },
+			manifest: {
+				id: "litgo-application",
+				name: "LitGO",
+				short_name: "LitGO",
+				start_url: "/",
+				display: "standalone",
+				theme_color: "#ffffff",
+				lang: "ru",
+				icons: [
+					{
+						src: "./named-icon.png",
+						sizes: "348x348",
+						type: "image/png",
+						purpose: "any",
+					},
+				],
+			},
+		}),
 	],
 	resolve: {
 		alias: {
