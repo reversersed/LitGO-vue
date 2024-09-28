@@ -25,7 +25,7 @@ export default abstract class GenericHttpService<T> implements IHttpService<T> {
 	private getDefaultHeaders() {
 		return {
 			"Content-Type": serverConfig.serverContentType,
-			"Access-Control-Expose-Headers": ["Cookie"],
+			"Access-Control-Expose-Headers": ["Cookie", "Set-Cookie"],
 		};
 	}
 	protected buildPath(pathPart?: string): string {
