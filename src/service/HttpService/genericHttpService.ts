@@ -1,14 +1,15 @@
-import serverConfig from "@/config/server.config";
 import type { IHttpService } from "./httpService";
 import axios, { Axios } from "axios";
 
 export default abstract class GenericHttpService<T> implements IHttpService<T> {
-	private serverString: string;
 	private controllerName: string;
+	private serverString: string;
 	protected axios: Axios;
 
 	constructor(controllerName: string) {
-		this.serverString = `${serverConfig.serverString}:${serverConfig.serverPort}/${serverConfig.serverEntryPoint}`;
+		this.serverString = `${import.meta.env.VITE_SERVER_STRING}:${
+			import.meta.env.VITE_SERVER_PORT
+		}/${import.meta.env.VITE_SERVER_ENTRY_POINT}`;
 		controllerName =
 			controllerName[0] === "/" ? controllerName.slice(1) : controllerName;
 		controllerName =
@@ -24,7 +25,7 @@ export default abstract class GenericHttpService<T> implements IHttpService<T> {
 	}
 	private getDefaultHeaders() {
 		return {
-			"Content-Type": serverConfig.serverContentType,
+			"Content-Type": import.meta.env.VITE_SERVER_CONTENT_TYPE,
 			"Access-Control-Expose-Headers": ["Cookie", "Set-Cookie"],
 		};
 	}

@@ -5,6 +5,8 @@ services:
     image: frontend
     container_name: frontend
     user: root
+    volumes:
+      - ../data/files:/usr/share/nginx/html/files
     build:
       context: ../frontend
       dockerfile: ./Dockerfile
