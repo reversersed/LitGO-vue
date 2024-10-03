@@ -28,7 +28,6 @@ const router = createRouter({
 		/*{
 			path: "/signin",
 			name: "signin",
-			beforeEnter: unauthorizedRoute,
 			component: async () => await import("@/pages/RegistrationPage.vue"),
 			meta: {
 				authorized: false,
@@ -37,7 +36,11 @@ const router = createRouter({
 		},*/
 		{
 			path: "/:pathMatch(.*)*",
-			redirect: "/", // 404 redirecting to index
+			//redirect: "/",
+			component: async () => await import("@/pages/NotFoundPage.vue"),
+			meta: {
+				layout: AppLayoutEnum.notfound,
+			},
 		},
 	],
 });
