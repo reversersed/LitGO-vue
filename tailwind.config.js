@@ -4,6 +4,7 @@ export default {
 	theme: {
 		extend: {
 			colors: {
+				body: "rgb(var(--color-bodybackground) / <alpha-value>)",
 				maintext: "rgb(var(--color-maintext) / <alpha-value>)",
 				mainblack: "rgb(var(--color-mainblack) / <alpha-value>)",
 				mainwhite: "rgb(var(--color-mainwhite) / <alpha-value>)",

@@ -15,6 +15,7 @@ const formModel = ref<{
 	password: string;
 	repeatPassword: string;
 	email: string;
+    rememberMe: boolean;
 	errLogin: string[];
 	errPassword: string[];
 	errPasswordRepeat?: string;
@@ -24,6 +25,7 @@ const formModel = ref<{
 	password: "",
 	repeatPassword: "",
 	email: "",
+    rememberMe: false,
     errLogin: [],
 	errPassword: [],
 	errEmail: [],
@@ -52,7 +54,7 @@ async function proceedRegistration(this: any, e : Event) {
         return;
     }
 
-    const response = await service.register(formModel.value.login, formModel.value.password, formModel.value.repeatPassword, formModel.value.email)
+    const response = await service.register(formModel.value.login, formModel.value.password, formModel.value.repeatPassword, formModel.value.email, formModel.value.rememberMe)
     
     if(isHttpError(response)) {
         const error = response as HttpError;
@@ -268,7 +270,28 @@ async function proceedRegistration(this: any, e : Event) {
 				>
 					{{ message }}
 				</p>
-			</div>
+			</div>		
+            <div class="flex flex-row gap-2 self-center">
+			<input
+				class="w-4 h-4 cursor-pointer disabled:cursor-default bg-mainbg select-none"
+				type="checkbox"
+				:disabled="registerAttempting"
+				v-model="formModel.rememberMe"
+				id="rememberMe"
+			/>
+			<label
+				for="rememberMe"
+				class="select-none font-main text-sm duration-150 -mt-[1px]"
+				:class="
+					registerAttempting
+						? 'text-mainblack/30'
+						: formModel.rememberMe
+						? 'text-mainblack cursor-pointer'
+						: 'text-mainblack/70 cursor-pointer'
+				"
+				>Запомнить меня</label
+			>
+		</div>
             <input
 			type="submit"
 			:value="!registerAttempting ? 'Отправить' : ''"
@@ -282,6 +305,6 @@ async function proceedRegistration(this: any, e : Event) {
             v-if="registerAttempting"
 		/></input>
 	</form>
-	<p class="text-xs mt-2  select-none w-full text-center":class="registerAttempting?'text-accent/40':'text-accent/70'"><a :href="registerAttempting?undefined:'/'" :class="registerAttempting?'text-accent/40':'hover:text-contrast'" class="text-accent/80 transition-all duration-200">Вернуться на главную</a></p>
+	<p class="text-xs mt-2 select-none w-full text-center":class="registerAttempting?'text-accent/30':'text-accent/70'"><a :href="registerAttempting?undefined:'/'" :class="registerAttempting?'text-accent/30':'text-accent/80 hover:text-contrast'" class="transition-all duration-200">Вернуться на главную</a></p>
 	</div>
 </template>

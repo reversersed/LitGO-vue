@@ -4,6 +4,7 @@
 
 @layer base {
 	:root {
+		--color-bodybackground: 255 255 255;
 		--color-maintext: 254 255 255;
 		--color-mainblack: 0 0 0;
 		--color-mainwhite: 255 255 255;
@@ -15,6 +16,7 @@
 		--color-error: 150 0 0;
 	}
 	:root[class~="dark"] {
+		--color-bodybackground: 255 255 255;
 		--color-maintext: 254 255 255;
 		--color-mainblack: 0 0 0;
 		--color-mainwhite: 255 255 255;

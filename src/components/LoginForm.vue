@@ -7,17 +7,19 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { isHttpError } from "@/models/httperror.model";
 
-const loginAttempting = ref(false)
-const emits = defineEmits(["success","loginAttempting"]);
+const loginAttempting = ref(false);
+const emits = defineEmits(["success", "loginAttempting"]);
 let formModel = ref<{
 	login: string;
 	password: string;
+	rememberMe: boolean;
 	errLogin: string | undefined;
 	errPassword: string | undefined;
 	errAttempt: string | undefined;
 }>({
 	login: "",
 	password: "",
+	rememberMe: false,
 	errLogin: undefined,
 	errPassword: undefined,
 	errAttempt: undefined,
@@ -25,8 +27,8 @@ let formModel = ref<{
 const service = new UserHttpService();
 async function attempLogin(this: any, e: Event) {
 	e.preventDefault();
-    loginAttempting.value = true;
-	emits("loginAttempting", loginAttempting.value)
+	loginAttempting.value = true;
+	emits("loginAttempting", loginAttempting.value);
 
 	formModel.value.errAttempt = undefined;
 	if (formModel.value.login.length == 0)
@@ -40,7 +42,8 @@ async function attempLogin(this: any, e: Event) {
 	) {
 		const response = await service.login(
 			formModel.value.login,
-			formModel.value.password
+			formModel.value.password,
+			formModel.value.rememberMe
 		);
 		if (isHttpError(response)) {
 			formModel.value.errAttempt = "Неправильный логин или пароль";
@@ -49,8 +52,8 @@ async function attempLogin(this: any, e: Event) {
 			emits("success");
 		}
 	}
-    loginAttempting.value = false;
-	emits("loginAttempting", loginAttempting.value)
+	loginAttempting.value = false;
+	emits("loginAttempting", loginAttempting.value);
 }
 </script>
 
@@ -61,7 +64,7 @@ async function attempLogin(this: any, e: Event) {
 				type="text"
 				class="disabled:border-mainblack/40 disabled:text-mainblack/40 peer border-spacing-2 border-2 rounded-md px-2 py-1 font-main text-accent z-10 bg-transparent outline-none focus:border-accent border-accent origin-center transition-all duration-200"
 				id="login"
-                :disabled="loginAttempting"
+				:disabled="loginAttempting"
 				v-model="formModel.login"
 				:class="
 					formModel.errLogin !== undefined
@@ -85,13 +88,13 @@ async function attempLogin(this: any, e: Event) {
 				:class="formModel.errLogin !== undefined ? 'visible' : 'collapse'"
 				class="text-sm text-error ml-2 -mt-[2px] select-none"
 			>
-				{{ formModel.errLogin+" " }}
+				{{ formModel.errLogin + " " }}
 			</p>
 		</div>
 		<div class="flex flex-col w-full">
 			<input
 				type="password"
-                :disabled="loginAttempting"
+				:disabled="loginAttempting"
 				class="disabled:border-mainblack/40 disabled:text-mainblack/40 peer border-spacing-2 border-2 rounded-md px-2 py-1 font-main text-accent z-10 bg-transparent outline-none focus:border-accent border-accent origin-center transition-all duration-200"
 				id="password"
 				v-model="formModel.password"
@@ -117,24 +120,63 @@ async function attempLogin(this: any, e: Event) {
 				:class="formModel.errPassword !== undefined ? 'visible' : 'invisible'"
 				class="text-sm text-error ml-2 -mt-[2px] select-none"
 			>
-				{{ formModel.errPassword+" " }}
+				{{ formModel.errPassword + " " }}
 			</p>
 		</div>
-		<p :class="formModel.errAttempt !== undefined ? 'visible' : 'invisible'" class="text-sm text-error -mt-5 select-none">
-			{{ formModel.errAttempt+" " }}
+		<p
+			:class="formModel.errAttempt !== undefined ? 'visible' : 'invisible'"
+			class="text-sm text-error -mt-6 select-none"
+		>
+			{{ formModel.errAttempt + " " }}
 		</p>
+		<div class="flex flex-row gap-2">
+			<input
+				class="w-4 h-4 cursor-pointer disabled:cursor-default bg-mainbg select-none"
+				type="checkbox"
+				:disabled="loginAttempting"
+				v-model="formModel.rememberMe"
+				id="rememberMe"
+			/>
+			<label
+				for="rememberMe"
+				class="select-none font-main text-sm duration-150 -mt-[1px]"
+				:class="
+					loginAttempting
+						? 'text-mainblack/30'
+						: formModel.rememberMe
+						? 'text-mainblack cursor-pointer'
+						: 'text-mainblack/70 cursor-pointer'
+				"
+				>Запомнить меня</label
+			>
+		</div>
 		<input
 			type="submit"
 			:value="!loginAttempting ? 'Войти' : ''"
-            :disabled="loginAttempting"
+			:disabled="loginAttempting"
 			class="enabled:cursor-pointer w-fit px-6 py-1 bg-mainshadow/80 enabled:hover:bg-mainbg enabled:hover:tracking-widest text-maintext rounded-xl transition-all duration-300"
-		><FontAwesomeIcon
+		/><FontAwesomeIcon
 			:icon="faSpinner"
 			spin-pulse
 			size="xl"
 			class="text-maintext -mt-9 select-none"
-            v-if="loginAttempting"
-		/></input>
+			v-if="loginAttempting"
+		/>
 	</form>
-	<p class="text-xs mt-2  select-none w-full text-center":class="loginAttempting?'text-accent/40':'text-accent/70'">Еще нет аккаунта? <a :href="loginAttempting?undefined:'/signin'" :class="loginAttempting?'text-accent/40':'hover:text-contrast'" class="text-accent/80 transition-all duration-200">Зарегистрироваться</a></p>
+	<p
+		class="text-xs mt-2 select-none w-full text-center"
+		:class="loginAttempting ? 'text-accent/30' : 'text-accent/70'"
+	>
+		Еще нет аккаунта?
+		<a
+			:href="loginAttempting ? undefined : '/signin'"
+			:class="
+				loginAttempting
+					? 'text-accent/30'
+					: 'text-accent/80 hover:text-contrast'
+			"
+			class="transition-all duration-200"
+			>Зарегистрироваться</a
+		>
+	</p>
 </template>

@@ -19,12 +19,18 @@ export default class UserHttpService extends GenericHttpService<User> {
 	}
 	async login(
 		login: string,
-		password: string
+		password: string,
+		rememberMe: boolean
 	): Promise<UserLoginModel | HttpError> {
 		const response = await this.axios
-			.post(this.buildPath("/login"), { login: login, password: password })
+			.post(this.buildPath("/login"), {
+				login: login,
+				password: password,
+				rememberMe: rememberMe,
+			})
 			.then((response) => response.data as Promise<UserLoginModel>)
 			.catch((error) => {
+				console.log(error);
 				if (error.response !== undefined)
 					return error.response.data as Promise<HttpError>;
 				else return createNullError();
@@ -35,7 +41,8 @@ export default class UserHttpService extends GenericHttpService<User> {
 		login: string,
 		password: string,
 		repeatPassword: string,
-		email: string
+		email: string,
+		rememberMe: boolean
 	): Promise<UserLoginModel | HttpError> {
 		const response = await this.axios
 			.post(this.buildPath("/signin"), {
@@ -43,6 +50,7 @@ export default class UserHttpService extends GenericHttpService<User> {
 				password: password,
 				password_repeat: repeatPassword,
 				email: email,
+				rememberMe: rememberMe,
 			})
 			.then((response) => response.data as Promise<UserLoginModel>)
 			.catch((error) => {
