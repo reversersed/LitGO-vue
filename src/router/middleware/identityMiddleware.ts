@@ -9,10 +9,20 @@ export default async function identityMiddleware(
 		const user = useUser();
 		const router = useRouter();
 
-		if (user?.isAuthorized != route.meta.authorized) return router?.push("/");
+		if (
+			user === undefined ||
+			(route.meta.authorized == true &&
+				user?.isAuthorized != route.meta.authorized)
+		)
+			return router?.push("/login");
+		else if (
+			route.meta.authorized == false &&
+			user?.isAuthorized != route.meta.authorized
+		)
+			return router?.push("/");
 		if (route.meta.roles !== undefined && route.meta.roles.length > 0) {
 			route.meta.roles.map((role) => {
-				if (!user.roles.includes(role)) return router?.push("/");
+				if (!user.roles.includes(role)) return router?.push("/notfound");
 			});
 		}
 	}

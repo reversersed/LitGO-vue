@@ -25,22 +25,25 @@ const router = createRouter({
 				layout: AppLayoutEnum.login,
 			},
 		},
-		/*{
+		{
 			path: "/signin",
 			name: "signin",
-			component: async () => await import("@/pages/RegistrationPage.vue"),
+			component: async () => await import("@/pages/SignInPage.vue"),
 			meta: {
 				authorized: false,
 				layout: AppLayoutEnum.login,
 			},
-		},*/
+		},
 		{
-			path: "/:pathMatch(.*)*",
-			//redirect: "/",
+			path: "/notfound",
 			component: async () => await import("@/pages/NotFoundPage.vue"),
 			meta: {
 				layout: AppLayoutEnum.notfound,
 			},
+		},
+		{
+			path: "/:pathMatch(.*)*",
+			redirect: "/notfound",
 		},
 	],
 });
