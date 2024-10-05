@@ -31,6 +31,27 @@ export default class UserHttpService extends GenericHttpService<User> {
 			});
 		return response;
 	}
+	async register(
+		login: string,
+		password: string,
+		repeatPassword: string,
+		email: string
+	): Promise<UserLoginModel | HttpError> {
+		const response = await this.axios
+			.post(this.buildPath("/signin"), {
+				login: login,
+				password: password,
+				password_repeat: repeatPassword,
+				email: email,
+			})
+			.then((response) => response.data as Promise<UserLoginModel>)
+			.catch((error) => {
+				if (error.response !== undefined)
+					return error.response.data as Promise<HttpError>;
+				else return createNullError();
+			});
+		return response;
+	}
 	async logout(): Promise<void> {
 		const response = await this.axios
 			.post(this.buildPath("/logout"))

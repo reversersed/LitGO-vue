@@ -2,9 +2,7 @@ import useRouter from "@/service/plugins/routerProvidePlugin";
 import { useUser } from "@/service/plugins/userStatePlugin";
 import { type RouteLocationNormalized } from "vue-router";
 
-export default async function identityMiddleware(
-	route: RouteLocationNormalized
-) {
+export default function identityMiddleware(route: RouteLocationNormalized) {
 	if (route.meta.authorized !== undefined) {
 		const user = useUser();
 		const router = useRouter();
