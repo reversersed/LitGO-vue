@@ -34,8 +34,12 @@ export default abstract class GenericHttpService<T> implements IHttpService<T> {
 			this.controllerName +
 			(pathPart &&
 				(pathPart[0] === "/" || pathPart[0] === "?"
-					? pathPart
-					: "/" + pathPart))
+					? pathPart[pathPart.length - 1] === "/"
+						? pathPart.slice(0, pathPart.length - 1)
+						: pathPart
+					: "/" + pathPart[pathPart.length - 1] === "/"
+					? pathPart.slice(0, pathPart.length - 1)
+					: pathPart))
 		);
 	}
 	abstract getAll(): Promise<T[]>;

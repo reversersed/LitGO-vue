@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type Author from "@/models/author.model";
 import type Book from "@/models/book.model";
+import BookFileService from "@/service/FileService/bookFileService";
 import AuthorHttpService from "@/service/HttpService/authorHttpService";
 import BookHttpService from "@/service/HttpService/bookHttpService";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +19,7 @@ watch(
 );
 let authorService = new AuthorHttpService();
 let bookService = new BookHttpService();
+let bookFileService = new BookFileService();
 
 const suggestionBooks = ref<Book[]>([]);
 const suggestionAuthors = ref<Author[]>([]);
@@ -79,7 +81,7 @@ const searchRedirect = () => {
 		</a>
 	</div>
 	<div
-		class="absolute mt-2 shadow-sm shadow-mainblack flex flex-col transition-all ease-in-out duration-200 w-auto max-w-[90%] sm:max-w-[70%] 2xl:max-w-[40%] lg:max-w-[50%] h-auto max-h-[90%] overflow-y-auto overflow-x-hidden bg-mainwhite rounded z-50 p-5"
+		class="absolute mt-2 ml-[3%] sm:ml-[16.5%] lg:ml-0 shadow-sm shadow-mainblack flex flex-col transition-all ease-in-out duration-200 w-auto max-w-[90%] sm:max-w-[70%] 2xl:max-w-[45%] lg:max-w-[50%] h-auto max-h-[90%] overflow-y-auto overflow-x-hidden bg-mainwhite rounded z-50 p-2"
 		:class="[
 			suggestionOpen &&
 			(suggestionBooks.length > 0 || suggestionAuthors.length > 0) &&
@@ -89,10 +91,10 @@ const searchRedirect = () => {
 		]"
 	>
 		<h1
-			v-if="suggestionBooks.length > 0"
+			v-if="suggestionBooks.length > 0 && suggestionAuthors.length > 0"
 			class="text-lg sm:text-xl font-semibold sm:font-bold ml-2 mb-1 sm:mb-2"
 		>
-			Произведения
+			Книги
 		</h1>
 		<div v-for="book in suggestionBooks" :key="book.id">
 			<a
@@ -104,15 +106,16 @@ const searchRedirect = () => {
 					class="flex flex-1 w-full h-auto px-2 py-2 sm:py-4 hover:bg-accent/10 rounded-xl transition-colors duration-200"
 				>
 					<img
-						:src="book.picture"
-						class="rounded-full min-w-14 md:min-w-24 h-14 md:h-24 object-cover sm:block hidden"
+						:src="bookFileService.getBookCoverPath(book.picture)"
+						alt=""
+						class="rounded-[5%] w-auto min-h-20 max-h-24 md:min-h-24 md:max-h-28 xl:min-h-28 xl:max-h-32 object-cover sm:block hidden"
 					/>
 					<div class="flex ml-2 max-w-full w-fit flex-col">
 						<span class="flex-wrap font-normal sm:font-semibold">{{
 							book.name
 						}}</span>
 						<p
-							class="collapse h-0 sm:visible max-h-[78px] max-w-fit sm:h-auto line-clamp-2 font-normal text-ellipsis"
+							class="collapse h-0 sm:visible max-h-full max-w-fit sm:h-auto line-clamp-3 xl:line-clamp-4 font-normal text-ellipsis"
 						>
 							{{ book.description }}
 						</p>
@@ -122,7 +125,7 @@ const searchRedirect = () => {
 		</div>
 
 		<h1
-			v-if="suggestionAuthors.length > 0"
+			v-if="suggestionBooks.length > 0 && suggestionAuthors.length > 0"
 			class="text-lg sm:text-xl font-semibold sm:font-bold ml-2 mt-2 mb-1 sm:mt-4 sm:mb-2"
 		>
 			Авторы
@@ -138,6 +141,7 @@ const searchRedirect = () => {
 				>
 					<img
 						:src="author.profilepicture"
+						alt=""
 						class="rounded-full min-w-14 md:min-w-24 h-14 md:h-24 object-cover sm:block hidden"
 					/>
 					<div class="flex flex-col ml-4 w-fit">

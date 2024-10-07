@@ -139,7 +139,7 @@ async function proceedRegistration(this: any, e : Event) {
 		>
 			Форма регистрации
 		</h1>
-		<form @submit="proceedRegistration" class="gap-6 flex flex-col">
+		<form @submit="proceedRegistration" class="gap-6 flex flex-col" autocomplete="off">
 			<div class="flex flex-col w-full">
 				<input
 					type="text"
